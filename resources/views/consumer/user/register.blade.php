@@ -27,126 +27,134 @@
 
 </head>
 <style>
-.authentication-form{
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    border-radius:5px 5px;
+.auth-wrapper .authentication-form {
+    width: 100%; 
+    max-width: 700px; 
+    /* Set a max-width to make the form look neat */
+    margin: 0 auto;
 }
-.authentication-form:hover{
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+@media (max-width: 768px) {
+    .auth-wrapper .authentication-form {
+        width: 100%;
+        height:100vh;
+    }
+     .authentication-form {
+            padding: 15px; /* Adjust padding */
+        }
+        .col-6 {
+            margin-bottom: 15px; /* Add space between input fields on small screens */
+        }
+        .sign-btn button {
+            width: 100%; /* Make the button take full width */
+        }
+        .logo-centered{
+            position:relative;
+            top:2em;
+        }
 }
 
 .btn-theme:hover{
    border-radius:1px solid #000;
+   color:#B28910;
+   border: 1px solid #B28910;
+}
+.btn-theme{
+    height:4em!important;
+    width:20em;
 }
 
 </style>
 
 <body>
+<div class="auth-wrapper">
+    <div class="container-fluid">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12">
+                <div class="authentication-form mx-auto">
+                    <div class="logo-centered">
+                        <img height="60" src="{{asset('themes/img/ipetano-logo-primary.png')}}" alt="Ipe Tano Logo">
+                    </div>
+                    <p>{{ __('messages.join_us') }}</p>
+                    <form action="{{ url('register') }}" method="post" id="registrationForm">
+                        @csrf
 
-    <div class="auth-wrapper">
-        <div class="container-fluid ">
-            <div class="row ">
-                <div class="col-xl-8 col-lg-6 col-md-5 p-0 d-md-block d-lg-block d-sm-none d-none">
-                    
-                </div>
-                <div class="col-xl-4 col-lg-6 col-md-7">
-                    <div class="authentication-form mx-auto" >
-                        <div class="logo-centered">
-                            <img height="60" src="{{asset('themes/img/ipetano-logo-primary.png')}}" alt="Ipe Tano Logo" >
+                        <div class="row g-3"> <!-- Added g-3 to reduce gap -->
+                            <div class="col-6 form-group">
+                                <input type="name" class="form-control" placeholder="{{ __('messages.first_name') }}" name="first_name" value="" required>
+                                <i class="ik ik-user" style="position:relative;top:-2em!important"></i>
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="name" class="form-control" placeholder="{{ __('messages.last_name') }}" name="last_name" value="" required>
+                                <i class="ik ik-user" style="position:relative;top:-2em!important"></i>
+                            </div>
                         </div>
-                        <p>{{ __('messages.join_us') }}</p>
-                        <form action="{{ url('register') }}" method="post" id="registrationForm">
-                            @csrf
-                            <div class="form-group">
-                                <input type="name" class="form-control" placeholder="{{ __('messages.first_name') }}" name="first_name"
-                                    value="" required>
-                                <i class="ik ik-user"></i>
-                            </div>
 
-                            <div class="form-group">
-                                <input type="name" class="form-control" placeholder="{{ __('messages.last_name') }}" name="last_name"
-                                    value="" required>
-                                <i class="ik ik-user"></i>
-                            </div>
-
-                            <div class="form-group">
+                        <div class="row g-3">
+                            <div class="col-12 form-group">
                                 <select class="form-control select2" name="gender" required="">
                                     <option value="">{{ __('messages.select_gender') }}</option>
-                                        <option value="male">{{ __('messages.male') }}</option>
-                                        <option value="female">{{ __('messages.female') }}</option>
+                                    <option value="male">{{ __('messages.male') }}</option>
+                                    <option value="female">{{ __('messages.female') }}</option>
                                 </select>
-                                <i class="ik ik-users"></i>
+                                <i class="ik ik-users" style="position:relative;top:-2em!important"></i>
                             </div>
+                        </div>
 
-                            <div class="form-group">
+                        <div class="row g-3">
+                            <div class="col-12 form-group">
                                 <p style="color:#b3a6a6">{{ __('messages.dob') }}</p>
-                                <input type="date" class="form-control" placeholder="DOB" name="dob"
-                                    value="" required>
-                                      <i class="ik ik-calendar" style="position:relative;top:-2em!important"></i>
-                                    
+                                <input type="date" class="form-control" name="dob" value="" required>
+                                <i class="ik ik-calendar" style="position:relative;top:-2em!important"></i>
                             </div>
+                        </div>
 
-                            {{-- <div class="form-group">
-                                <input type="date" class="form-control" placeholder="DOB" name="dob"
-                                    value="" required>
-                                <i class="ik ik-calendar"></i>
-                            </div> --}}
-
-                            <div class="form-group">
+                        <div class="row g-3">
+                            <div class="col-6 form-group">
                                 <select class="form-control select2" name="region_id" required="">
                                     <option value="">{{ __('messages.select_region') }}</option>
                                     @foreach ($regions as $key)
                                         <option value="{{ $key->id }}">{{ $key->name }}</option>
                                     @endforeach
                                 </select>
-                                <i class="ik ik-map"></i>
+                                <i class="ik ik-map" style="position:relative;top:-2em!important"></i>
                             </div>
-
-                          
-
-                            <div class="form-group">
-                                <input type="number" class="form-control" placeholder="{{ __('messages.phone_number') }}" name="phone"
-                                    value="" required>
-                                <i class="fa fa-mobile"></i>
+                            <div class="col-6 form-group">
+                                <input type="number" class="form-control" placeholder="{{ __('messages.phone_number') }}" name="phone" value="" required>
+                                <i class="fa fa-mobile" style="position:relative;top:-2em!important"></i>
                             </div>
-
-                            <div class="form-group">
-                                <input type="email" class="form-control" placeholder="{{ __('messages.email') }}" name="email"
-                                    value="" required>
-                                <i class="fa fa-envelope"></i>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="password" class="form-control" placeholder="{{ __('messages.password') }}" name="password"
-                                    required>
-                                <i class="ik ik-lock"></i>
-                            </div>
-                            <div class="row">
-                                {{-- <div class="col-12 text-left">
-                                    <label class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="item_checkbox"
-                                            name="item_checkbox" value="option1">
-                                        <span class="custom-control-label">&nbsp;I Accept <a href="#">Terms and
-                                                Conditions</a></span>
-                                    </label>
-                                </div> --}}
-                            </div>
-                           <div class="sign-btn text-center text-dark">
-                                <button type="button" class="btn btn-theme" data-bs-toggle="modal" data-bs-target="#termsModal">
-                                    {{ __('messages.create_account') }}
-                                </button>
-                            </div>
-                        </form>
-                        <div class="register">
-                            <p style="color:#b3a6a6"> {{ __('messages.have_account') }} <a href="{{ url('login') }}"> {{ __('messages.signin') }}</a></p>
                         </div>
+
+                        <div class="row g-3">
+                            <div class="col-6 form-group">
+                                <input type="email" class="form-control" placeholder="{{ __('messages.email') }}" name="email" value="" required>
+                                <i class="fa fa-envelope" style="position:relative;top:-2em!important"></i>
+                            </div>
+                            <div class="col-6 form-group">
+                                <input type="password" class="form-control" placeholder="{{ __('messages.password') }}" name="password" required>
+                                <i class="ik ik-lock" style="position:relative;top:-2em!important"></i>
+                            </div>
+                        </div>
+
+                        <div class="sign-btn text-center text-dark">
+                            <button type="button" class="btn btn-theme" data-bs-toggle="modal" data-bs-target="#termsModal">
+                                {{ __('messages.create_account') }}
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="register">
+                        <p style="color:#b3a6a6">{{ __('messages.have_account') }} <a href="{{ url('login') }}"> {{ __('messages.signin') }}</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
 
 
 
@@ -248,7 +256,7 @@
            
             <div class="modal-footer">
                 <button type="button" id="myButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button id="submitFormButton" class="btn btn-primary" >Accept and Submit</button>
+                 <button type="submit"class="btn btn-primary" onclick="submitForm()">Accept and Submit</button>
             </div>
         </div>
     </div>
@@ -273,11 +281,21 @@
             }
         });
 
-        // Submit the form when the button is clicked
-        submitFormBtn.addEventListener('click', function () {
-            registrationForm.submit();
-        });
+
+        document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent form from default submission
+
+        // Perform validation here if needed
+
+   
+});
     });
+
+
+    function submitForm() {
+        // Trigger form submission here
+        document.getElementById("registrationForm").submit(); // Replace with your actual form ID
+    }
 </script>
 
 

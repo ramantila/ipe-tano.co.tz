@@ -62,10 +62,23 @@ class ConsumerController extends Controller
         $query = $request->input('query');
 
         $product = Product::where('product_name', 'like', '%' . $query . '%')
-            ->get();
+        ->with('business')  // Eager load the related business
+        ->get()
+        ->map(function ($product) {
+            // Add business_name to each product
+            $product->business_name = $product->business ? $product->business->business_name : null;
+            return $product;
+        });
 
-        $service = Service::where('service_name', 'like', '%' . $query . '%')
-            ->get();
+    // Search for services and eager load business name
+    $service = Service::where('service_name', 'like', '%' . $query . '%')
+        ->with('business')  // Eager load the related business
+        ->get()
+        ->map(function ($service) {
+            // Add business_name to each service
+            $service->business_name = $service->business ? $service->business->business_name : null;
+            return $service;
+        });
 
         $results = [
             'product' => $product,
@@ -332,9 +345,28 @@ class ConsumerController extends Controller
             'Content-Disposition' => 'inline; filename="' . $fileName . '"',
         ]);
     }
-  
 
 
+
+    public function aboutUsBusiness(){
+        return   view('business_fontend.about-us');
+    }
+
+    public function whyUsBusiness(){
+        return   view('business_fontend.why-us');
+    }
+    
+    
+    
+    public function contactBusiness(){
+        return   view('business_fontend.contact');
+    }
+
+
+    public function pricingBusiness(){
+        return view('business_fontend.pricing');
+    }
+    
 
 
 }

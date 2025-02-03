@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', [App\Http\Controllers\ConsumerController::class, 'index']);
+Route::get('/', action: [App\Http\Controllers\ConsumerController::class, 'index']);
 Route::get('/home', [App\Http\Controllers\ConsumerController::class, 'indexBusiness']);
 Route::get('/search', [App\Http\Controllers\ConsumerController::class, 'search']);
 Route::get('/search-product', [App\Http\Controllers\ConsumerController::class, 'searchProduct']);
@@ -248,3 +248,23 @@ Route::get('/lang/{locale}', function ($locale) {
 Route::get('/preview-terms/{language}', [App\Http\Controllers\ConsumerController::class, 'previewTerms'])->name('preview.terms');
 
 Route::get('/privacy-policy/{language}', [App\Http\Controllers\ConsumerController::class, 'previewPrivacyPolicy'])->name('preview.privacy');
+
+
+
+
+// for business routes added by frontend developer
+Route::prefix('for-business')->group(function () {
+    Route::get('/home', [App\Http\Controllers\ConsumerController::class, 'indexBusiness'])->name('for-business.home');
+    Route::get('/about-us', [App\Http\Controllers\ConsumerController::class, 'aboutUsBusiness'])->name('for-business.about-us');
+    Route::get('/why-us', [App\Http\Controllers\ConsumerController::class, 'whyUsBusiness'])->name('for-business.why-us');
+    Route::get('/contact', [App\Http\Controllers\ConsumerController::class, 'contactBusiness'])->name('for-business.contacts');
+    Route::get('/pricing', [App\Http\Controllers\ConsumerController::class, 'pricingBusiness'])->name('for-business.pricing');
+
+
+});
+
+
+// Redirect from /home to /for-business/home
+Route::get('/home', function () {
+    return redirect('/for-business/home');
+});

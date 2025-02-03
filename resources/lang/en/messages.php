@@ -174,4 +174,20 @@ return [
      'no_product_found'=>'No Product Found',
      'no_service_found'=>'No Service Found',
 
+     //  for business reviews translation
+    'are_you_interested_to_join'=>'Are you interested in Joining Ipe Tano?',
+    'why_ipe_tano'=>'Why Ipe Tano',
+    'pricing'=>'Pricing',
+    'login'=>'Login',
+    'contacts_'=>'Contact',
+    'create_better'=>'Create better experiences!',
+    'be_heard' => 'Be Heard',
+    'be_seen' => 'Be Seen',
+     'lets_get_started'=>"Let's get started",
+     'join_now'=>'Join Now',
+     'welcome_to_ipetano_platform'=>'Welcome to Ipe Tano, Your Trusted Review Platform',
+
+
+
+
 ];
