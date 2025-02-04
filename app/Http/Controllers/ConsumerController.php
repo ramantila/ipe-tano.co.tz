@@ -346,8 +346,6 @@ class ConsumerController extends Controller
         ]);
     }
 
-
-
     public function aboutUsBusiness(){
         return   view('business_fontend.about-us');
     }
