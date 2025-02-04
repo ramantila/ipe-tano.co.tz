@@ -186,7 +186,7 @@
                     <a href="consumer/product/read-more/${item.id}" class="col-md-12">
                         <div class="row">
                         <div class="col-sm-6">
-                            <h6 style="margin: 0;">${item.product_name} from ${item.business_name}</h6>
+                            <h6 style="margin: 0;">${item.product_name} from  ${item.business_name}</h6>
                             <small style="margin: 0;">${item.total_review} Reviews</small>
                         </div>
                         <div class="col-sm-3"></div>

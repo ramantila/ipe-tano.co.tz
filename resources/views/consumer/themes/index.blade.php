@@ -35,6 +35,12 @@ body{
 }
 }
 
+.search-results{
+    position: relative;
+    top:0.5em;
+    border-radius:10px;
+}
+
 </style>
 
 <body>
@@ -68,12 +74,12 @@ body{
                                                 placeholder="{{ __('messages.search_companies') }}"
                                                 onkeyup="searchCompanies()">
                                             <i class="icon_search"></i>
-                                            <div id="results" class="search-results">
+                                            <div id="results" class="search-results" style="height:20em!important; overflow-y: auto; overflow-x: hidden; position:sticky">
                                             </div>
                                             <input class="form-control" type="text" id="search-product-query"
                                                 placeholder="{{ __('messages.product_or_service') }}" onkeyup="searchProduct()">
                                             <i class="icon_search"></i>
-                                            <div id="search-results" class="search-results">
+                                            <div id="search-results" class="search-results" style="height:20em!important; overflow-y: auto; overflow-x: hidden;">
                                                 {{-- <input type="submit" value="Search"> --}}
                                             </div>
                                 </form>
