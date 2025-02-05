@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ResetToken;
 use App\Models\Business;
 use App\Models\BusinessReview;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -115,27 +116,68 @@ class LoginController extends Controller
 
         $totalReviews = array_sum($genderCounts);
 
+       if ($totalReviews > 0) {
         $genderPercentages = [
             'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
             'Female' => ($genderCounts['Female'] / $totalReviews) * 100
         ];
+        } else {
+            $genderPercentages = [
+                'Male' => 0,
+                'Female' => 0
+            ];
+        }
+
 
         $topCompanies = Business::where('total_rating', '>', 2)
             ->where('total_rating', '<=', 5)
             ->orderBy('total_rating', 'DESC')
             ->get();
 
-        return view(
-            'admin.dashboard',
-            compact(
-                'businesses',
-                'consumers',
-                'reviews',
-                'topCompanies',
-                'ratingsData',
-                'genderPercentages'
-            )
-        );
+
+         $chartData = Category::has('business')
+            ->with(['business' => function ($query) {
+                $query->where('display', 1)
+                    ->where('total_rating', '>', 2) // Only businesses with rating greater than 2
+                    ->orderBy('total_rating', 'desc');
+            }])
+            ->get()
+            ->map(function ($category) {
+                // Get the top business, if any
+                $topBusiness = $category->business->first();
+
+                return [
+                    'name' => $topBusiness ? $topBusiness->business_name : $category->category_name, // Business name or category name
+                    'average' => $topBusiness ? (float) $topBusiness->total_rating : 0 // Rating or 0
+                ];
+            })
+            ->filter(function ($item) {
+                return $item['average'] > 0; // Ensure we only return businesses with ratings
+            });
+
+         // Filter categories to only include those with businesses
+            //        $chartData = $categories->filter(function ($category) {
+            //            return $category->business->isNotEmpty(); // Only keep categories with businesses
+            //        })->map(function ($category) {
+            //            $topBusiness = $category->business->first();
+            //            return [
+            //                'name' => $topBusiness->business_name, // Use business name for display
+            //                'average' => (float)$topBusiness->total_rating // Convert rating to float
+            //            ];
+            //        });
+
+            return view(
+                'admin.dashboard',
+                compact(
+                    'businesses',
+                    'consumers',
+                    'reviews',
+                    'topCompanies',
+                    'ratingsData',
+                    'genderPercentages',
+                    'chartData'
+                )
+            );
     }
 
 
