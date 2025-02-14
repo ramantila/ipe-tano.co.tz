@@ -44,9 +44,9 @@
                         <h5 class="widget-title">Address </h5>
 
                         <ul class="list-unstyled">
-                            <li>+(68) 345 5902</li>
-                            <li>info@yourdomain.com</li>
-                            <li>123 Fifth Floor East 26th Street, New York, NY 10011</li>
+                            <li>+255674183107</li>
+                            <li>info@ipetano.co.tz</li>
+                            <li>Mbezi Beach Dar es salaam, Tanzania</li>
                         </ul>
                     </div>
                 </div>

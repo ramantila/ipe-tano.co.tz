@@ -53,6 +53,12 @@ return [
     'kinyozi' => 'Barber',
     'technolojia' => 'Technology',
     'usafirishaji' => 'Transportation',
+    "king'amuzi" => "Decoder",
+    'maji' => 'Water',
+    'vinywaji' => 'Beverages',
+    'magodoro' => 'Mattresses',
+    'ufundi_na_hobbies' => 'Crafts and Hobbies',
+    'chakula'=>'Food',
     ],
 
     'latest_reviews' => 'Latest Reviews',
