@@ -15,7 +15,7 @@ return [
     'share_experience' => 'Wajuze wenzako!',
     'search_companies' => 'Tafuta Hapa Kampuni......',
     'product_or_service' => 'Bidhaa au huduma.....',
-    'top_categories' => 'Vipengele vinavyoongoza',
+    'top_categories' => 'Vinavyoongoza',
     'companies_categories' => 'Vipengele Vya Kampuni',
 
     'discover_top_categories' => 'Tafuta vipengele vinavyoongoza',
@@ -51,8 +51,15 @@ return [
         'ufukweni' => 'Ufukweni',
         'utalii' => 'Utalii',
         'kinyozi' => 'Kinyozi',
-        'technolojia' => 'Technolojia',
+        'teknolojia' => 'Teknolojia',
         'usafirishaji' => 'Usafirishaji',
+        "king'amuzi" => "King'amuzi",
+        'maji' => 'Maji',
+        'vinywaji' => 'Vinywaji',
+        'magodoro' => 'Magodoro',
+        'ufundi_na_hobbies'=>'Ufundi na Hobbies',
+        'chakula'=>'Chakula',
+
     ],
     'latest_reviews' => 'Maoni ya hivi punde',
     'published' => 'Chapishwa ',
@@ -135,7 +142,7 @@ return [
     'related_to'=>'Matokeo Yanayohusiana na',
     'back_to_home'=>'Rudi Nyumbani',
     'all_companies'=>'Makampuni Yote',
-    'register_'=>'Jisajiri',
+    'register_'=>'Jisajili',
     'join_us'=>'Jiunge nasi leo! Inachukua hatua chache tu',
     'first_name'=>'Jina la Kwanza',
     'last_name'=>'Jina la Mwisho',
@@ -144,9 +151,9 @@ return [
     'female'=>'Mwanamke',
     'write_a_review'=>'Andika Maoni Yako',
     'dob'=>'Tarehe ya Kuzaliwa',
-    'select_region'=>'Chagua Mkoa',
-    'phone_number'=>'Namba ya Simu mf. 0783923269',
-     'password'=>'Neno la Siri',
+    'select_region'=>'Mkoa',
+    'phone_number'=>'Simu',
+     'password'=>'NenoSiri',
      'have_account'=>'Je Tayari una Akaunti?',
      'remember_me'=>'Nikumbuke',
      'forgot_password'=>'Umesahau Neno Siri?',
@@ -182,4 +189,24 @@ return [
      'no_product_found'=>'Hakuna Bidhaa Inayopatikana',
      'no_service_found'=>'Hakuna Huduma Inayopatikana',
      'review_now'=>'Toa Maoni Sasa',
+
+
+
+
+     
+
+    //  for business reviews translation
+    'are_you_interested_to_join'=>'Je, ungependa Kujiunga na Ipe Tano?',
+    'why_ipe_tano'=>'Kwanini Ipe Tano',
+    'pricing'=>'Malipo',
+    'login'=>'Ingia',
+    'contacts_'=>'Tupigie',
+    'create_better'=>'Pata Mrejesho wa Bidhaa au Huduma!',
+    'be_heard' => 'Sikika',
+    'be_seen' => 'Onekana',
+    'lets_get_started'=>'Anza sasa',
+    'join_now'=>'Jiunge Sasa',
+    'welcome_to_ipetano_platform'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
+    'welcome_to_ipetano_platform_desc'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
+
 ];
