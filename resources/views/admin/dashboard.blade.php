@@ -12,7 +12,7 @@
                         <div class="col-8">
                             <h4 class="mb-0" style="color: #000">
                                 {{-- @if ($commission != null)
-                            {{ number_format($commission->mpesa + $commission->tigopesa + $commission->airtelmoney 
+                            {{ number_format($commission->mpesa + $commission->tigopesa + $commission->airtelmoney
                                 + $commission->halopesa + $commission->nmb + $commission->crdb + $commission->nbc, 2) }}
                         @else
                             0
@@ -94,18 +94,19 @@
                 </div>
             </div>
         </div>
-      
+
         <div class="col-md-4">
             <div class="card  text-white">
                 <div class="card-block">
                     <div class="row align-items-center">
-                        <canvas id="ratingsPieChart"></canvas>
+{{--                        <canvas id="ratingsPieChart"></canvas>--}}
+                        <canvas id="reviewsChart" width="400" height="400"></canvas>
                     </div>
                     <div id="Widget-line-chart2" class="chart-line chart-shadow"></div>
                 </div>
             </div>
         </div>
-       
+
 
     </div>
 
@@ -118,22 +119,7 @@
                     <h3>Top Businesses</h3>
                 </div>
                 <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Business Name</th>
-                                <th class="text-center">Rating</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($topCompanies as $top)
-                                <tr>
-                                    <td>{{ $top->business_name }}</td>
-                                    <td class="text-center">{{ $top->total_rating }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                    <canvas id="reviewsChart" width="400" height="400"></canvas>
                 </div>
             </div>
         </div>
@@ -172,7 +158,7 @@
                 </div>
             </div> --}}
         </div>
-       
+
 
     </div>
 
@@ -218,62 +204,62 @@
                 }
             });
         });
-        
+
 
         // Pie Chart
-        var pieCtx = document.getElementById('ratingsPieChart').getContext('2d');
-        var totalRatings = {{ $ratingsData['Very good'] }} + {{ $ratingsData['Good'] }} + {{ $ratingsData['Okay'] }} + {{ $ratingsData['Bad'] }} + {{ $ratingsData['Terrible'] }};
-        var ratingsPieChart = new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Very good', 'Good', 'Okay', 'Bad', 'Terrible'],
-                datasets: [{
-                    data: [
-                        {{ $ratingsData['Very good'] }},
-                        {{ $ratingsData['Good'] }},
-                        {{ $ratingsData['Okay'] }},
-                        {{ $ratingsData['Bad'] }},
-                        {{ $ratingsData['Terrible'] }}
-                    ],
-                    backgroundColor: [
-                        'rgb(54, 162, 235)',
-                        'rgb(74, 191, 103)',
-                        'rgb(108, 113, 122)',
-                        'rgb(255, 206, 86)',
-                        'rgb(255, 97, 97)'
-                    ],
-                    borderColor: [
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(201, 203, 207, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(255, 99, 132, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                plugins: {
-                    datalabels: {
-                        formatter: (value, context) => {
-                            let percentage = (value / totalRatings * 100).toFixed(2) + "%";
-                            return percentage;
-                        },
-                        color: '#fff',
-                        labels: {
-                            title: {
-                                font: {
-                                    weight: 'bold'
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            plugins: [ChartDataLabels]
-        });
+        {{--var pieCtx = document.getElementById('ratingsPieChart').getContext('2d');--}}
+        {{--var totalRatings = {{ $ratingsData['Very good'] }} + {{ $ratingsData['Good'] }} + {{ $ratingsData['Okay'] }} + {{ $ratingsData['Bad'] }} + {{ $ratingsData['Terrible'] }};--}}
+        {{--var ratingsPieChart = new Chart(pieCtx, {--}}
+        {{--    type: 'pie',--}}
+        {{--    data: {--}}
+        {{--        labels: ['Very good', 'Good', 'Okay', 'Bad', 'Terrible'],--}}
+        {{--        datasets: [{--}}
+        {{--            data: [--}}
+        {{--                {{ $ratingsData['Very good'] }},--}}
+        {{--                {{ $ratingsData['Good'] }},--}}
+        {{--                {{ $ratingsData['Okay'] }},--}}
+        {{--                {{ $ratingsData['Bad'] }},--}}
+        {{--                {{ $ratingsData['Terrible'] }}--}}
+        {{--            ],--}}
+        {{--            backgroundColor: [--}}
+        {{--                'rgb(54, 162, 235)',--}}
+        {{--                'rgb(74, 191, 103)',--}}
+        {{--                'rgb(108, 113, 122)',--}}
+        {{--                'rgb(255, 206, 86)',--}}
+        {{--                'rgb(255, 97, 97)'--}}
+        {{--            ],--}}
+        {{--            borderColor: [--}}
+        {{--                'rgba(54, 162, 235, 1)',--}}
+        {{--                'rgba(75, 192, 192, 1)',--}}
+        {{--                'rgba(201, 203, 207, 1)',--}}
+        {{--                'rgba(255, 206, 86, 1)',--}}
+        {{--                'rgba(255, 99, 132, 1)'--}}
+        {{--            ],--}}
+        {{--            borderWidth: 1--}}
+        {{--        }]--}}
+        {{--    },--}}
+        {{--    options: {--}}
+        {{--        plugins: {--}}
+        {{--            datalabels: {--}}
+        {{--                formatter: (value, context) => {--}}
+        {{--                    let percentage = (value / totalRatings * 100).toFixed(2) + "%";--}}
+        {{--                    return percentage;--}}
+        {{--                },--}}
+        {{--                color: '#fff',--}}
+        {{--                labels: {--}}
+        {{--                    title: {--}}
+        {{--                        font: {--}}
+        {{--                            weight: 'bold'--}}
+        {{--                        }--}}
+        {{--                    }--}}
+        {{--                }--}}
+        {{--            }--}}
+        {{--        }--}}
+        {{--    },--}}
+        {{--    plugins: [ChartDataLabels]--}}
+        {{--});--}}
 
-       
+
 
         const ctx = document.getElementById('genderDistributionChart').getContext('2d');
         const data = {
@@ -306,6 +292,39 @@
         };
 
         const genderDistributionChart = new Chart(ctx, config);
+
+
+        const ctxx = document.getElementById('reviewsChart').getContext('2d');
+
+        // Use the data passed from the controller
+        const chartData = @json($chartData); // Adjust based on your variable
+
+        // Extract names and ratings for Chart.js
+        const labels = chartData.map(item => item.name);
+        const ratings = chartData.map(item => item.average);
+
+        const reviewsChart = new Chart(ctxx, {
+            type: 'bar', // 'bar' for vertical or 'horizontalBar' for horizontal charts
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Top Business Reviews Average',
+                    data: ratings,
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y', // Set to 'y' for horizontal bars
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 5 // Adjust based on your rating scale
+                    }
+                }
+            }
+        });
 
     </script>
 @endsection

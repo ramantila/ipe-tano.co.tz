@@ -2,7 +2,7 @@
 
 <h3>Business registration details missing.</h3>
 
-<h4>Dear <b>{{ $data->first_name }} {{ $data->last_name }}</b>,</h4>
+<h4>Dear <b>{{ $user->first_name }} {{ $user->last_name }}</b>,</h4>
 
 <p>Kindly complete your application by uploading the following:</p>
 <ul>

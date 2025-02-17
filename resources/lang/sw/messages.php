@@ -135,7 +135,7 @@ return [
     'related_to'=>'Matokeo Yanayohusiana na',
     'back_to_home'=>'Rudi Nyumbani',
     'all_companies'=>'Makampuni Yote',
-    'register_'=>'Jisajili',
+    'register_'=>'Jisajiri',
     'join_us'=>'Jiunge nasi leo! Inachukua hatua chache tu',
     'first_name'=>'Jina la Kwanza',
     'last_name'=>'Jina la Mwisho',
@@ -182,24 +182,4 @@ return [
      'no_product_found'=>'Hakuna Bidhaa Inayopatikana',
      'no_service_found'=>'Hakuna Huduma Inayopatikana',
      'review_now'=>'Toa Maoni Sasa',
-
-
-
-
-     
-
-    //  for business reviews translation
-    'are_you_interested_to_join'=>'Je, ungependa Kujiunga na Ipe Tano?',
-    'why_ipe_tano'=>'Kwanini Ipe Tano',
-    'pricing'=>'Malipo',
-    'login'=>'Ingia',
-    'contacts_'=>'Tupigie',
-    'create_better'=>'Pata Mrejesho wa Bidhaa au Huduma!',
-    'be_heard' => 'Sikika',
-    'be_seen' => 'Onekana',
-    'lets_get_started'=>'Anza sasa',
-    'join_now'=>'Jiunge Sasa',
-    'welcome_to_ipetano_platform'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
-    'welcome_to_ipetano_platform_desc'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
-
 ];

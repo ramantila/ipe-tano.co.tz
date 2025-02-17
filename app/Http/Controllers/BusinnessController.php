@@ -134,7 +134,7 @@ class BusinnessController extends Controller
         $business->display = 1;
         if($business->save())
         {
-            Mail::to('65ntila@gmail.com')->send(new BusinessVerification($business));
+            Mail::to($business->user->email)->send(new BusinessVerification($business));
         }
         Session::flash('success', 'Account verified successfull!');
         return redirect('businesses/view');

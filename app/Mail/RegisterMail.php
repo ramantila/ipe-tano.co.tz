@@ -18,10 +18,10 @@ class RegisterMail extends Mailable
      *
      * @return void
      */
-    // public $token;
-    public function __construct()
+    public $user;
+    public function __construct($user)
     {
-        // $this->token = $token;
+        $this->user = $user;
     }
 
     /**

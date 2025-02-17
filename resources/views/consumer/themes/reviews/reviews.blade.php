@@ -367,6 +367,13 @@
                                         <h5>{{ __('messages.categories_list.' . strtolower(str_replace(' ', '_', $topCat->category_name))) }}</h5>
                                     </a>
                            @endforeach
+
+                           {{-- @foreach ($bestCompanies as $key)
+                                <a href="#" class="card">
+                                    <img src="{{ url('images/category/' . $key->category->category_icon) }}" alt="Card 1">
+                                    <h5>{{ $key->category->category_name }}</h5>
+                                </a>
+                            @endforeach --}}
                                 </div>
 
                             </div>
@@ -393,7 +400,7 @@
                                              <img src="{{ url('images/business/'.$best->logo) }}" alt="{{$best->business_logo}}" class="company-logo">
                                       </div>
                                       <div class="col-8 col-md-9 col-sm-8">
-                                           <span class="company-name" style="white-space: nowrap; ">{{$best->business_name}}</span>
+                                           <span class="company-name">{{$best->business_name}}</span>
 
                                       </div>
                                     </div>

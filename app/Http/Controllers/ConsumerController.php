@@ -24,10 +24,9 @@ class ConsumerController extends Controller
     {
     
         $topCompanies = Business::where('total_rating', '>', 2)
-        ->where('total_rating', '<=', 5)
-        ->take(3) 
-        ->get();
-        
+            ->where('total_rating', '<', 5)
+            ->get();
+
         $categories = Category::take(6)->get();
 
         return view('.consumer.themes.index', compact('topCompanies', 'categories'));
@@ -62,23 +61,10 @@ class ConsumerController extends Controller
         $query = $request->input('query');
 
         $product = Product::where('product_name', 'like', '%' . $query . '%')
-        ->with('business')  // Eager load the related business
-        ->get()
-        ->map(function ($product) {
-            // Add business_name to each product
-            $product->business_name = $product->business ? $product->business->business_name : null;
-            return $product;
-        });
+            ->get();
 
-    // Search for services and eager load business name
-    $service = Service::where('service_name', 'like', '%' . $query . '%')
-        ->with('business')  // Eager load the related business
-        ->get()
-        ->map(function ($service) {
-            // Add business_name to each service
-            $service->business_name = $service->business ? $service->business->business_name : null;
-            return $service;
-        });
+        $service = Service::where('service_name', 'like', '%' . $query . '%')
+            ->get();
 
         $results = [
             'product' => $product,
@@ -90,8 +76,12 @@ class ConsumerController extends Controller
 
     public function reviews(Request $request)
     {
-
         $categories = Category::orderBy('id', 'DESC')->get();
+
+        $bestCompanies = Business::where('total_rating', '>', 2)
+        ->where('total_rating', '<', 5)
+        -> with('category')
+        ->get();
 
         $search = $request->input('search');
         $businesses = Business::when($search, function($query) use ($search) {
@@ -100,12 +90,12 @@ class ConsumerController extends Controller
         })
         ->orderBy('id', 'DESC')
         ->paginate(10);
-        $bestCompanies = Business::take(15)->orderBy('total_rating','DESC')->get(['business_name', 'logo','id']);
+        // $bestCompanies = Business::take(15)->orderBy('total_rating','DESC')->get(['business_name', 'logo','id']);
         $topCategories = Category::take(15)->get(['category_name','category_icon']);
       
 
-
         return view('consumer.themes.reviews.reviews', compact('businesses', 'categories','search','bestCompanies','topCategories'));
+        // return view('consumer.themes.reviews.reviews', compact('businesses', 'categories','search', 'topCompanies'));
     }
 
     public function reviewsCompany(Request $request)
@@ -232,9 +222,9 @@ class ConsumerController extends Controller
             "password" => $request->password,
         );
 
-        $user = Sentinel::authenticate($credentials);
+         $user = Sentinel::authenticate($credentials);
 
-        Mail::to($user->email)->send(new RegisterMail());
+        Mail::to($user->email)->send(new RegisterMail($user));
 
         Session::flash('success', 'Registered  successfull!');
 
@@ -261,6 +251,16 @@ class ConsumerController extends Controller
         // Session::flash('success', 'Registered  successfull!');
         // return redirect('/login');
 
+    }
+
+    public function emailConfirmed($userId){
+        $product = User::find($userId);
+        $product->email_confirmed = date('Y-m-d H:i:s');
+        $product->save();
+
+        Session::flash('success', 'Email confirmed successfull!');
+
+        return redirect('/login');
     }
 
     public function productReviewReported($review_id)
@@ -345,28 +345,9 @@ class ConsumerController extends Controller
             'Content-Disposition' => 'inline; filename="' . $fileName . '"',
         ]);
     }
+  
 
 
-
-    public function aboutUsBusiness(){
-        return   view('business_fontend.about-us');
-    }
-
-    public function whyUsBusiness(){
-        return   view('business_fontend.why-us');
-    }
-    
-    
-    
-    public function contactBusiness(){
-        return   view('business_fontend.contact');
-    }
-
-
-    public function pricingBusiness(){
-        return view('business_fontend.pricing');
-    }
-    
 
 
 }

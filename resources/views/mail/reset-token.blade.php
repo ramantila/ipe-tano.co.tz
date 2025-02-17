@@ -6,7 +6,7 @@
 
 <p>You have requested a password reset. Please click the link below to set a new password.</p>
 
-<p>Click <a href="{{ url('/reset-password') }}">here</a> to reset your password.</p>
+<p>Click <a href="{{ url('password/reset-password') }}">here</a> to reset your password.</p>
 
 <p>Kind regards,<br>
 Ipe Tano Admin.</p>

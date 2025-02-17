@@ -35,12 +35,6 @@ body{
 }
 }
 
-.search-results{
-    position: relative;
-    top:0.5em;
-    border-radius:10px;
-}
-
 </style>
 
 <body>
@@ -74,12 +68,12 @@ body{
                                                 placeholder="{{ __('messages.search_companies') }}"
                                                 onkeyup="searchCompanies()">
                                             <i class="icon_search"></i>
-                                            <div id="results" class="search-results" style="height:20em!important; overflow-y: auto; overflow-x: hidden; position:sticky">
+                                            <div id="results" class="search-results">
                                             </div>
                                             <input class="form-control" type="text" id="search-product-query"
                                                 placeholder="{{ __('messages.product_or_service') }}" onkeyup="searchProduct()">
                                             <i class="icon_search"></i>
-                                            <div id="search-results" class="search-results" style="height:20em!important; overflow-y: auto; overflow-x: hidden;">
+                                            <div id="search-results" class="search-results">
                                                 {{-- <input type="submit" value="Search"> --}}
                                             </div>
                                 </form>
@@ -359,7 +353,7 @@ body{
                                     <div class="rating">
                                         <!-- Example using Font Awesome for the star icons -->
                                        
-                                         <p class="category" style="margin-bottom:0px !important">{{ __(key: 'messages.categories_list.' . strtolower(str_replace(' ', '_', $top->category->category_name))) }}</p>
+                                         {{-- <p class="category" style="margin-bottom:0px !important">{{ __(key: 'messages.categories_list.' . strtolower(str_replace(' ', '_', $top->category->category_name))) }}</p> --}}
                                         <span class="rating"><em>{{$top->total_rating}}/5.00</em></span>
                                         {{-- '<span class="rating">' + getStarIcons(review.rating) + '<em>' +
                             review.rating + '/5.00</em></span>' + --}}

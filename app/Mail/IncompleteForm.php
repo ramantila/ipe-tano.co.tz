@@ -18,10 +18,14 @@ class IncompleteForm extends Mailable
      *
      * @return void
      */
-    public $form;
-    public function __construct($form)
+    public $business;
+    public $missingItems;
+    public $user;
+    public function __construct($business, $missingItems, $user)
     {
-        $this->form = $form;
+        $this->business = $business;
+        $this->missingItems = $missingItems;
+        $this->user = $user;
     }
 
     /**

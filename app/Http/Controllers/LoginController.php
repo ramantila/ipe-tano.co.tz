@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\RateLimiter;
+
 
 class LoginController extends Controller
 {
@@ -33,6 +35,17 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         } else {
+          
+             // Rate limiting logic
+    $key = 'login:' . $request->ip(); // Unique key based on the user's IP
+    $maxAttempts = 5; // Max attempts
+    $decaySeconds = 60; // Lockout duration in seconds
+
+    if (RateLimiter::tooManyAttempts($key, $maxAttempts)) {
+        return response()->json([
+            'message' => 'Too many login attempts. Try again in ' . RateLimiter::availableIn($key) . ' seconds.',
+        ], 429);
+    }
             //process validation here
             $credentials = array(
                 "email" => $request->email,
@@ -72,6 +85,7 @@ class LoginController extends Controller
                 //return back
                 //                flash('Invalid email or password.')->error();
                 //return back
+                RateLimiter::hit($key, $decaySeconds);
                 Session::flash('error', 'Invalid username or password!');
                 return redirect()->back()->withInput();
             }
@@ -117,16 +131,16 @@ class LoginController extends Controller
         $totalReviews = array_sum($genderCounts);
 
        if ($totalReviews > 0) {
-        $genderPercentages = [
-            'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
-            'Female' => ($genderCounts['Female'] / $totalReviews) * 100
-        ];
-        } else {
-            $genderPercentages = [
-                'Male' => 0,
-                'Female' => 0
-            ];
-        }
+    $genderPercentages = [
+        'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
+        'Female' => ($genderCounts['Female'] / $totalReviews) * 100
+    ];
+} else {
+    $genderPercentages = [
+        'Male' => 0,
+        'Female' => 0
+    ];
+}
 
 
         $topCompanies = Business::where('total_rating', '>', 2)
@@ -155,29 +169,29 @@ class LoginController extends Controller
                 return $item['average'] > 0; // Ensure we only return businesses with ratings
             });
 
-         // Filter categories to only include those with businesses
-            //        $chartData = $categories->filter(function ($category) {
-            //            return $category->business->isNotEmpty(); // Only keep categories with businesses
-            //        })->map(function ($category) {
-            //            $topBusiness = $category->business->first();
-            //            return [
-            //                'name' => $topBusiness->business_name, // Use business name for display
-            //                'average' => (float)$topBusiness->total_rating // Convert rating to float
-            //            ];
-            //        });
+        // Filter categories to only include those with businesses
+//        $chartData = $categories->filter(function ($category) {
+//            return $category->business->isNotEmpty(); // Only keep categories with businesses
+//        })->map(function ($category) {
+//            $topBusiness = $category->business->first();
+//            return [
+//                'name' => $topBusiness->business_name, // Use business name for display
+//                'average' => (float)$topBusiness->total_rating // Convert rating to float
+//            ];
+//        });
 
-            return view(
-                'admin.dashboard',
-                compact(
-                    'businesses',
-                    'consumers',
-                    'reviews',
-                    'topCompanies',
-                    'ratingsData',
-                    'genderPercentages',
-                    'chartData'
-                )
-            );
+        return view(
+            'admin.dashboard',
+            compact(
+                'businesses',
+                'consumers',
+                'reviews',
+                'topCompanies',
+                'ratingsData',
+                'genderPercentages',
+                'chartData'
+            )
+        );
     }
 
 
@@ -296,7 +310,7 @@ class LoginController extends Controller
         if ($user) {
             $user->save();
 
-            // Mail::to($user->email)->send(new ResetToken($user));
+            Mail::to($user->email)->send(new ResetToken($user));
 
             Session::flash('success', 'An email has been sent to ' . $request->email . '. Please check your inbox.');
             return redirect()->back()->withInput();

@@ -18,10 +18,10 @@ class ResetToken extends  Mailable
      *
      * @return void
      */
-    public $token;
-    public function __construct($token)
+    public $user;
+    public function __construct($user)
     {
-        $this->token = $token;
+        $this->user = $user;
     }
 
     /**

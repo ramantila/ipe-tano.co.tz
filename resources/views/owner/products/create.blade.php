@@ -100,7 +100,7 @@
         const textarea = document.getElementById("myTextarea");
         const errorMessage = document.getElementById("errorMessage");
         const submitbtn = document.getElementById("submit");
-        const maxLength = 500; // Change this to your desired maxlength
+        const maxLength = 100; // Change this to your desired maxlength
 
         textarea.addEventListener("input", function () {
             const text = textarea.value;

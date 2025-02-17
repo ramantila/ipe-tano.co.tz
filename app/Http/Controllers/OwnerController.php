@@ -7,8 +7,10 @@ use App\Models\BusinessReview;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Product;
+use App\Models\ProductReview;
 use App\Models\Region;
 use App\Models\Service;
+use App\Models\ServiceReview;
 use App\Models\Terms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,7 @@ use Session;
 
 class OwnerController extends Controller
 {
-    
+
     public function signUp(){
 
         $regions = Region::get();
@@ -46,8 +48,27 @@ class OwnerController extends Controller
     }
 
     public function dashboard(){
-        
+
         $numberofBusiness = Business::where('user_id',Sentinel::getUser()->id)->get();
+
+        $totalProducts = $numberofBusiness->sum(function ($business) {
+            return $business->products->count(); // Count products for each business
+        });
+
+        $totalServices = $numberofBusiness->sum(function ($business) {
+            return $business->services->count(); // Count products for each business
+        });
+
+        $totalServices = $numberofBusiness->sum(function ($business) {
+            return $business->services->count(); // Count products for each business
+        });
+
+        $totalBusinessReviewSum = Business::where('user_id', Sentinel::getUser()->id)
+            ->withSum(['reviews' => function ($query) {
+                $query->where('status', 1); // Only active reviews
+            }], 'rating')
+            ->get()
+            ->sum('reviews_sum_rating');
 
         if(count($numberofBusiness) > 0)
         {
@@ -62,14 +83,14 @@ class OwnerController extends Controller
                 'Bad' => $ratings->where('total_rating', 2)->count(),
                 'Terrible' => $ratings->where('total_rating', 1)->count(),
             ];
-            
+
             $reviews = BusinessReview::where('business_id', $business->id)->with('user')->get();
-    
+
             $genderCounts = [
                 'Male' => 0,
                 'Female' => 0
             ];
-        
+
             foreach ($reviews as $review) {
                 if ($review->user->gender === 'male') {
                     $genderCounts['Male']++;
@@ -77,9 +98,9 @@ class OwnerController extends Controller
                     $genderCounts['Female']++;
                 }
             }
-        
+
             $totalReviews = array_sum($genderCounts);
-        
+
             $genderPercentages = [
                 'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
                 'Female' => ($genderCounts['Female'] / $totalReviews) * 100
@@ -88,7 +109,11 @@ class OwnerController extends Controller
             return view('owner.dashboard',
              compact(
                 'ratingsData',
-                'genderPercentages'
+                'genderPercentages',
+                         'numberofBusiness',
+                          'totalProducts',
+                          'totalServices',
+                         'totalBusinessReviewSum'
              ));
         }
         else
@@ -98,7 +123,7 @@ class OwnerController extends Controller
 
             return view('owner.overview',compact('agree'));
         }
-        
+
     }
 
     public function claimBusiness(){
@@ -173,7 +198,7 @@ class OwnerController extends Controller
         $business->job = $request->job;
         $business->save();
 
-        Session::put("business_claim_id",$business->id); 
+        Session::put("business_claim_id",$business->id);
         // Session::flash('success', 'Business added successfull!');
         return redirect()->route('owner.business.step_download',compact('business'));
 
@@ -343,7 +368,7 @@ class OwnerController extends Controller
         $product->business_id = $business->id;
         // $product->logo = $business->product_logo;
         $product->save();
- 
+
         Session::flash('success', 'Product added successfull!');
         return redirect('business/'.$business_id.'/product/view');
 
@@ -381,7 +406,7 @@ class OwnerController extends Controller
         $service->business_id = $business->id;
         $service->logo = $filename;
         $service->save();
- 
+
         Session::flash('success', 'Services added successfull!');
         return redirect('business/'.$business_id.'/service/view');
 
@@ -421,7 +446,7 @@ class OwnerController extends Controller
         $claimdetails = Business::find($claim_id);
 
         return view('owner.claims.claimsDetails', compact('claim_id','claimdetails'));
-        
+
     }
 
     public function storeClaimsBusiness(Request $request, $claim_id){
@@ -483,8 +508,8 @@ class OwnerController extends Controller
                         ->join('users', 'users.id', '=', 'businesses.user_id')
                         ->where('businesses.user_id', Sentinel::getUser()->id)
                         ->get();
-        
-        return view('owner.review.index', compact('reviews'));                
+
+        return view('owner.review.index', compact('reviews'));
 
     }
 
@@ -513,7 +538,7 @@ class OwnerController extends Controller
         $countries = Country::get();
 
         return view('owner.incomplete.step_businessinfo',compact('business','categories','countries','business_id'));
-        
+
     }
 
     public function storeincompleteBusinesInfo(Request $request, $business_id){
@@ -536,7 +561,7 @@ class OwnerController extends Controller
         $business->job = $request->job;
         $business->save();
 
-        // Session::put("business_claim_id",$business->id); 
+        // Session::put("business_claim_id",$business->id);
         // Session::flash('success', 'Business added successfull!');
         return redirect()->route('owner.incomplete.step_download',compact('business_id'));
 
@@ -586,6 +611,363 @@ class OwnerController extends Controller
         $business->save();
         Session::flash('success', 'Business completed successfull!');
         return redirect('business/view');
+    }
+
+    public function dashboardBusiness(){
+
+        $data = Business::where('user_id',Sentinel::getUser()->id)->get();
+
+        return view('owner.dashboard.business.business_dashboard', compact('data'));
+
+    }
+
+    public function businessAnalytics($businessId){
+
+        $data = Business::where('id',$businessId)->first();
+
+//        $business =  Business::where('user_id',Sentinel::getUser()->id)->first();
+
+        $ratings = Business::select('total_rating')->where('id',$businessId)->get();
+
+        /*          Graph Chart          */
+
+        $ratingsData = [
+            'Very good' => $ratings->where('total_rating', 5)->count(),
+            'Good' => $ratings->where('total_rating', 4)->count(),
+            'Okay' => $ratings->where('total_rating', 3)->count(),
+            'Bad' => $ratings->where('total_rating', 2)->count(),
+            'Terrible' => $ratings->where('total_rating', 1)->count(),
+        ];
+
+        $reviews = BusinessReview::where('business_id', $businessId)->with('user')->get();
+
+        /*          Donut Chart          */
+
+        $genderCounts = [
+            'Male' => 0,
+            'Female' => 0
+        ];
+
+        foreach ($reviews as $review) {
+            if ($review->user->gender === 'male') {
+                $genderCounts['Male']++;
+            } elseif ($review->user->gender === 'female') {
+                $genderCounts['Female']++;
+            }
+        }
+
+        $totalReviews = array_sum($genderCounts);
+
+        $genderPercentages = [
+            'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
+            'Female' => ($genderCounts['Female'] / $totalReviews) * 100
+        ];
+
+        /*          Hozontal Chart          */
+
+        $ageGroups = [
+            '18 - 24' => BusinessReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [18, 24]);
+            })->count(),
+
+            '25 - 34' => BusinessReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [25, 34]);
+            })->count(),
+
+            '35 - 44' => BusinessReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [35, 44]);
+            })->count(),
+
+            '45 - 54' => BusinessReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [45, 54]);
+            })->count(),
+
+            '55+' => BusinessReview::whereHas('user', function ($query) {
+                $query->where(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), '>=', 55);
+            })->count(),
+        ];
+
+         $reviewCounts = BusinessReview::join('users', 'business_reviews.user_id', '=', 'users.id')
+            ->join('regions', 'users.region_id', '=', 'regions.id')  // Join users to regions based on region_id
+            ->selectRaw('regions.name as region, COUNT(business_reviews.id) as review_count')
+            ->groupBy('regions.name')  // Group by the region name
+            ->pluck('review_count', 'region');
+
+
+        /*          Line Chart          */
+
+        $ageRanges = [
+            '18 - 24' => [18, 24],
+            '25 - 34' => [25, 34],
+            '35 - 44' => [35, 44],
+            '45 - 54' => [45, 54],
+            '55+' => [55, 100]
+        ];
+
+        $ratingMap = [
+            'Very good' => 1,
+            'Good' => 2,
+            'Okay' => 3,
+            'Bad' => 4,
+            'Terrible' => 5
+        ];
+
+        $reviewData = [];
+        foreach ($ageRanges as $ageGroup => $ages) {
+            $reviewData[$ageGroup] = [];
+
+            foreach ($ratingMap as $ratingLabel => $ratingValue) {
+                $count = BusinessReview::whereHas('user', function ($query) use ($ages) {
+                    $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), $ages);
+                })->where('rating', $ratingValue)->count();
+
+                $reviewData[$ageGroup][$ratingLabel] = $count;
+            }
+        }
+
+        return view('owner.dashboard.business.dashboard',
+            compact('data', 'ratingsData', 'genderPercentages', 'ageGroups', 'reviewCounts','reviewData', 'ratingMap')
+        );
+
+    }
+
+    public function dashboardServices(){
+
+        $data = Business::where('user_id',Sentinel::getUser()->id)
+        ->whereHas('services')
+        ->with('services')->get();
+
+        return view('owner.dashboard.service.service_dashboard', compact('data'));
+    }
+
+    public function servicesAnalytics($serviceId){
+
+        $data = Service::where('id',$serviceId)->first();
+
+        $ratings = Service::select('total_rating')->where('id',$serviceId)->get();
+
+         /*          Graph Chart          */
+        $ratingsData = [
+            'Very good' => $ratings->where('total_rating', 5)->count(),
+            'Good' => $ratings->where('total_rating', 4)->count(),
+            'Okay' => $ratings->where('total_rating', 3)->count(),
+            'Bad' => $ratings->where('total_rating', 2)->count(),
+            'Terrible' => $ratings->where('total_rating', 1)->count(),
+        ];
+
+        $reviews = ServiceReview::where('service_id', $serviceId)->with('user')->get();
+
+         /*          Donut Chart          */
+
+        $genderCounts = [
+            'Male' => 0,
+            'Female' => 0
+        ];
+
+        foreach ($reviews as $review) {
+            if ($review->user->gender === 'male') {
+                $genderCounts['Male']++;
+            } elseif ($review->user->gender === 'female') {
+                $genderCounts['Female']++;
+            }
+        }
+
+        $totalReviews = array_sum($genderCounts);
+
+        $genderPercentages = [
+            'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
+            'Female' => ($genderCounts['Female'] / $totalReviews) * 100
+        ];
+
+         /*          Hozontal Chart          */
+
+         $ageGroups = [
+            '18 - 24' => ServiceReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [18, 24]);
+            })->count(),
+
+            '25 - 34' => ServiceReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [25, 34]);
+            })->count(),
+
+            '35 - 44' => ServiceReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [35, 44]);
+            })->count(),
+
+            '45 - 54' => ServiceReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [45, 54]);
+            })->count(),
+
+            '55+' => ServiceReview::whereHas('user', function ($query) {
+                $query->where(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), '>=', 55);
+            })->count(),
+        ];
+
+         $reviewCounts = ServiceReview::join('users', 'service_reviews.user_id', '=', 'users.id')
+            ->join('regions', 'users.region_id', '=', 'regions.id')  // Join users to regions based on region_id
+            ->selectRaw('regions.name as region, COUNT(service_reviews.id) as review_count')
+            ->groupBy('regions.name')  // Group by the region name
+            ->pluck('review_count', 'region');
+
+
+        /*          Line Chart          */
+
+        $ageRanges = [
+            '18 - 24' => [18, 24],
+            '25 - 34' => [25, 34],
+            '35 - 44' => [35, 44],
+            '45 - 54' => [45, 54],
+            '55+' => [55, 100]
+        ];
+
+        $ratingMap = [
+            'Very good' => 1,
+            'Good' => 2,
+            'Okay' => 3,
+            'Bad' => 4,
+            'Terrible' => 5
+        ];
+
+        $reviewData = [];
+        foreach ($ageRanges as $ageGroup => $ages) {
+            $reviewData[$ageGroup] = [];
+
+            foreach ($ratingMap as $ratingLabel => $ratingValue) {
+                $count = ServiceReview::whereHas('user', function ($query) use ($ages) {
+                    $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), $ages);
+                })->where('rating', $ratingValue)->count();
+
+                $reviewData[$ageGroup][$ratingLabel] = $count;
+            }
+        }
+
+        return view('owner.dashboard.service.dashboard',
+        compact('data', 'ratingsData', 'genderPercentages', 'ageGroups', 'reviewCounts','reviewData', 'ratingMap')
+        );
+
+    }
+
+    public function dashboardProducts(){
+
+        $data = Business::where('user_id',Sentinel::getUser()->id)
+        ->whereHas('products')
+        ->with('products')->get();
+
+        return view('owner.dashboard.service.service_dashboard', compact('data'));
+    }
+
+    public function productsAnalytics($productId){
+
+        $data = Product::where('id',$productId)->first();
+
+        $ratings = Product::select('total_rating')->where('id',$productId)->get();
+
+         /*          Graph Chart          */
+        $ratingsData = [
+            'Very good' => $ratings->where('total_rating', 5)->count(),
+            'Good' => $ratings->where('total_rating', 4)->count(),
+            'Okay' => $ratings->where('total_rating', 3)->count(),
+            'Bad' => $ratings->where('total_rating', 2)->count(),
+            'Terrible' => $ratings->where('total_rating', 1)->count(),
+        ];
+
+        $reviews = ProductReview::where('product_id', $productId)->with('user')->get();
+
+         /*          Donut Chart          */
+
+        $genderCounts = [
+            'Male' => 0,
+            'Female' => 0
+        ];
+
+        foreach ($reviews as $review) {
+            if ($review->user->gender === 'male') {
+                $genderCounts['Male']++;
+            } elseif ($review->user->gender === 'female') {
+                $genderCounts['Female']++;
+            }
+        }
+
+        $totalReviews = array_sum($genderCounts);
+
+        if ($totalReviews > 0) {
+            $genderPercentages = [
+                'Male' => ($genderCounts['Male'] / $totalReviews) * 100,
+                'Female' => ($genderCounts['Female'] / $totalReviews) * 100,
+            ];
+        } else {
+            $genderPercentages = [
+                'Male' => 0,
+                'Female' => 0,
+            ];
+        }
+
+         /*          Hozontal Chart          */
+
+         $ageGroups = [
+            '18 - 24' => ProductReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [18, 24]);
+            })->count(),
+
+            '25 - 34' => ProductReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [25, 34]);
+            })->count(),
+
+            '35 - 44' => ProductReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [35, 44]);
+            })->count(),
+
+            '45 - 54' => ProductReview::whereHas('user', function ($query) {
+                $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), [45, 54]);
+            })->count(),
+
+            '55+' => ProductReview::whereHas('user', function ($query) {
+                $query->where(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), '>=', 55);
+            })->count(),
+        ];
+
+         $reviewCounts = ProductReview::join('users', 'product_reviews.user_id', '=', 'users.id')
+            ->join('regions', 'users.region_id', '=', 'regions.id')  // Join users to regions based on region_id
+            ->selectRaw('regions.name as region, COUNT(product_reviews.id) as review_count')
+            ->groupBy('regions.name')  // Group by the region name
+            ->pluck('review_count', 'region');
+
+
+        /*          Line Chart          */
+
+        $ageRanges = [
+            '18 - 24' => [18, 24],
+            '25 - 34' => [25, 34],
+            '35 - 44' => [35, 44],
+            '45 - 54' => [45, 54],
+            '55+' => [55, 100]
+        ];
+
+        $ratingMap = [
+            'Very good' => 1,
+            'Good' => 2,
+            'Okay' => 3,
+            'Bad' => 4,
+            'Terrible' => 5
+        ];
+
+        $reviewData = [];
+        foreach ($ageRanges as $ageGroup => $ages) {
+            $reviewData[$ageGroup] = [];
+
+            foreach ($ratingMap as $ratingLabel => $ratingValue) {
+                $count = ProductReview::whereHas('user', function ($query) use ($ages) {
+                    $query->whereBetween(DB::raw('TIMESTAMPDIFF(YEAR, STR_TO_DATE(dob, "%Y-%m-%d"), CURDATE())'), $ages);
+                })->where('rating', $ratingValue)->count();
+
+                $reviewData[$ageGroup][$ratingLabel] = $count;
+            }
+        }
+
+        return view('owner.dashboard.service.dashboard',
+        compact('data', 'ratingsData', 'genderPercentages', 'ageGroups', 'reviewCounts','reviewData', 'ratingMap')
+        );
+
     }
 
 }

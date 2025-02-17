@@ -379,8 +379,8 @@
                                 @foreach($topBusiness as $top)   
                                     <div class="company-card">
                                         <a href="" class="d-block">
-                                            <img src="{{ url('images/business/'.$top->logo) }}" alt="{{$top->business_name}} logo" class="company-logo">
-                                            <span class="company-name" style="white-space: nowrap; " alt="{{$top->business_logo}}">{{$top->business_name}}</span>
+                                            <img src="{{asset('images/business/20231120172602.jpg')}}" alt="Company 5 Logo" class="company-logo">
+                                            <span class="company-name">{{$top->business_name}}</span>
                                         </a>
                                     </div>
                                 @endforeach

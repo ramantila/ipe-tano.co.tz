@@ -57,7 +57,6 @@
     }
 
     function displayResults(data) {
-      
         const resultsContainer = document.getElementById('results');
         resultsContainer.innerHTML = "";
         
@@ -141,7 +140,6 @@
     }
 
     function searchProduct() {
-
         var query = document.getElementById("search-product-query").value;
         const searchResults = document.getElementById("search-results");
         if (query !== "") {
@@ -174,7 +172,6 @@
     }
 
     function displayProductResults(data) {
-        console.log('data',data);
         const resultsContainer = document.getElementById('search-results');
         resultsContainer.innerHTML = "";
         
@@ -186,7 +183,7 @@
                     <a href="consumer/product/read-more/${item.id}" class="col-md-12">
                         <div class="row">
                         <div class="col-sm-6">
-                            <h6 style="margin: 0;">${item.product_name} from  ${item.business_name}</h6>
+                            <h6 style="margin: 0;">${item.product_name}</h6>
                             <small style="margin: 0;">${item.total_review} Reviews</small>
                         </div>
                         <div class="col-sm-3"></div>
@@ -205,7 +202,7 @@
                     <a href="consumer/service/read-more/${item.id}" class="col-md-12">
                         <div class="row">
                         <div class="col-sm-6" style="margin-top: 10px;">
-                            <h6 style="margin: 0;">${item.service_name} from ${item.business_name}</h6>
+                            <h6 style="margin: 0;">${item.service_name}</h6>
                             <small style="margin: 0;">${item.total_review} Reviews</small>
                         </div>
                         <div class="col-sm-3"></div>
