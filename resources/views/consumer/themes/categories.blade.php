@@ -169,7 +169,7 @@
     <div id="toTop"></div>
     <!-- Back to top button -->
 
-       @include('consumer.themes.components.scripts')
+    @include('consumer.themes.components.scripts')
 
     @include('consumer.themes.components.special-scripts.categories-page-scripts')
 
