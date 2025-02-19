@@ -3,7 +3,7 @@
     const staticText = "{{ __('messages.fedha_halali') }}, "; 
     const dynamicWords = [
         "{{ __('messages.huduma_halali') }}",  
-        "{{ __('messages.bidha_halali') }}"  
+        "{{ __('messages.bidhaa_halali') }}"  
     ];
 
     let wordIndex = 0; 

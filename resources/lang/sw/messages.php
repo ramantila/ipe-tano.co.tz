@@ -86,11 +86,11 @@ return [
     'message' => 'Ujumbe',
     'submit' => 'Tuma Ujumbe',
     'close' => 'Funga',
-     'Preview_Terms_and_Conditions'=>'Soma Sheria na Masharti',
-     'Preview_Privacy_Policy'=>'Soma Sera ya Faragha',
-     'select_version'=>'Chagua Toleo la Kusoma:',
+    'Preview_Terms_and_Conditions'=>'Soma Sheria na Masharti',
+    'Preview_Privacy_Policy'=>'Soma Sera ya Faragha',
+    'select_version'=>'Chagua Toleo la Kusoma:',
    'swahili_version'=>'Toleo la Kiswahili',
-   'english_version'=>'Toleo la Kingereza',
+    'english_version'=>'Toleo la Kingereza',
     'scroll'=>'Pangusa Kulia au Kushoto',
 
 
