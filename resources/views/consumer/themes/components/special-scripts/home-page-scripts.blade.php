@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 <script>
   const heroTextMain = document.querySelector('.hero_text_main');
     const cursor = document.querySelector('.cursor');
@@ -787,4 +787,4 @@
         fetchRecentReviews();
     });
 </script>
->>>>>>> front-end
+
