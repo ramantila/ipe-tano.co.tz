@@ -86,11 +86,11 @@
 
                                                 <div class="dropdown-menu dropdown-menu-right">
 
-                                                    {{-- <a class="dropdown-item"
-                                                        href="{{ url('businesses/' . $key->id . '/product/view') }}"><i
-                                                            class="ik ik-edit"></i> View Products </a>
-
                                                     <a class="dropdown-item"
+                                                        href="{{ url('businesses/' . $key->id . '/product/edit') }}"><i
+                                                            class="ik ik-edit"></i> Edit Product </a>
+
+                                                    {{-- <a class="dropdown-item"
                                                         href="{{ url('businesses/' . $key->id . '/service/view') }}"><i
                                                             class="ik ik-eye"></i> View Services </a> --}}
 

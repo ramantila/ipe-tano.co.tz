@@ -382,6 +382,37 @@ class OwnerController extends Controller
 
     }
 
+    public function editProduct($productId){
+        $product = Product::find($productId);
+        return view('owner.services.edit', compact('product'));
+    }
+
+    public function updateProduct($productId, Request $request)
+    {
+        // Find product, return error if not found
+        $product = Product::find($productId);
+        if (!$product) {
+            return redirect()->back()->with('error', 'Product not found.');
+        }
+    
+        // Handle file upload
+        if ($request->hasFile('product_logo')) {
+            $file = $request->file('product_logo');
+            $destinationPath = 'images/product'; // Upload path
+            $filename = 'product/' . date('YmdHis') . "." . $file->getClientOriginalExtension();
+            $file->move(public_path($destinationPath), $filename);
+            $product->logo = $filename; // Update logo if new file uploaded
+        }
+    
+        // Update other product details
+        $product->product_name = $request->product_name;
+        $product->description = $request->description;
+        $product->save();
+    
+        Session::flash('success', 'Product updated successfull!');
+        return redirect('business/'.$product->business_id.'/product/view');
+    }
+
     public function createService($business_id){
 
         return view('owner.services.create', compact('business_id'));
@@ -410,6 +441,37 @@ class OwnerController extends Controller
         Session::flash('success', 'Services added successfull!');
         return redirect('business/'.$business_id.'/service/view');
 
+    }
+
+    public function editService($serviceId){
+        $service = Service::find($serviceId);
+        return view('admin.services.edit', compact('service'));
+    }
+
+    public function updateService($productId, Request $request)
+    {
+        // Find service, return error if not found
+        $service = Service::find($productId);
+        if (!$service) {
+            return redirect()->back()->with('error', 'Service not found.');
+        }
+    
+        // Handle file upload
+        if ($request->hasFile('service_logo')) {
+            $file = $request->file('service_logo');
+            $destinationPath = 'images/service'; // Upload path
+            $filename = 'service/' . date('YmdHis') . "." . $file->getClientOriginalExtension();
+            $file->move(public_path($destinationPath), $filename);
+            $service->logo = $filename; // Update logo if new file uploaded
+        }
+    
+        // Update other service details
+        $service->service_name = $request->service_name;
+        $service->description = $request->description;
+        $service->save();
+    
+        Session::flash('success', 'Service updated successfull!');
+        return redirect('business/'.$service->business_id.'/service/view');
     }
 
     public function storeTerms(Request $request){

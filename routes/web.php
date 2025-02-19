@@ -73,11 +73,15 @@ Route::group(['prefix' => 'businesses'], function () {
     Route::get('{business_id}/product/view', [App\Http\Controllers\ProductController::class, 'index']);
     Route::get('{business_id}/product/create',[App\Http\Controllers\ProductController::class, 'create']);
     Route::post('{business_id}/product/store', [App\Http\Controllers\ProductController::class, 'store']);
+    Route::get('{business_id}/product/edit', [App\Http\Controllers\ProductController::class, 'edit']);
+    Route::post('{productId}/product/update', [App\Http\Controllers\ProductController::class, 'update']);
 
     //Route for Services
     Route::get('{business_id}/service/view', [App\Http\Controllers\ServiceController::class, 'index']);
     Route::get('{business_id}/service/create',[App\Http\Controllers\ServiceController::class, 'create']);
     Route::post('{business_id}/service/store', [App\Http\Controllers\ServiceController::class, 'store']);
+    Route::get('{business_id}/service/edit', [App\Http\Controllers\ServiceController::class, 'edit']);
+    Route::post('{serviceId}/service/update', [App\Http\Controllers\ServiceController::class, 'update']);
 
     //Route for Services
     Route::get('missed-form', [App\Http\Controllers\ServiceController::class, 'missedForm']);
@@ -171,10 +175,14 @@ Route::group(['prefix' => 'business'], function () {
     Route::get('{business_id}/product/view', [App\Http\Controllers\OwnerController::class, 'indexProduct']);
     Route::get('{business_id}/product/create', [App\Http\Controllers\OwnerController::class, 'createProduct']);
     Route::post('{business_id}/product/store', [App\Http\Controllers\OwnerController::class, 'storeProduct']);
+    Route::get('{business_id}/product/edit', [App\Http\Controllers\OwnerController::class, 'editProduct']);
+    Route::post('{productId}/product/update', [App\Http\Controllers\OwnerController::class, 'updateProduct']);
 
     Route::get('{business_id}/service/view', [App\Http\Controllers\OwnerController::class, 'indexService']);
     Route::get('{business_id}/service/create', [App\Http\Controllers\OwnerController::class, 'createService']);
     Route::post('{business_id}/service/store', [App\Http\Controllers\OwnerController::class, 'storeService']);
+    Route::get('{business_id}/service/edit', [App\Http\Controllers\OwnerController::class, 'editService']);
+    Route::post('{serviceId}/service/update', [App\Http\Controllers\OwnerController::class, 'updateService']);
 
     Route::get('{business_id}/incomplete_from/step_business', [App\Http\Controllers\OwnerController::class, 'incompleteBusinesInfo']);
     Route::post('{business_id}/incomplete_from/store_step_business', [App\Http\Controllers\OwnerController::class, 'storeincompleteBusinesInfo']);
