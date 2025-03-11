@@ -55,10 +55,10 @@ Route::post('/consumer-login', [App\Http\Controllers\LoginController::class, 'po
 
 Route::get('logout', [App\Http\Controllers\LoginController::class, 'logout']);
 
-Route::get('/dashboard',[App\Http\Controllers\LoginController::class, 'dashboard']);
+Route::get('/dashboard', [App\Http\Controllers\LoginController::class, 'dashboard'])->middleware('sentinel');
 // Route::get('/', [App\Http\Controllers\LoginController::class, 'index'])->name('login-user');
 
-Route::group(['prefix' => 'businesses'], function () {
+Route::group(['prefix' => 'businesses', 'middleware' => ['sentinel']], function () {
     Route::get('view', [App\Http\Controllers\BusinnessController::class, 'index']);
     Route::get('create',[App\Http\Controllers\BusinnessController::class, 'create']);
     Route::post('store', [App\Http\Controllers\BusinnessController::class, 'store']);
@@ -87,8 +87,9 @@ Route::group(['prefix' => 'businesses'], function () {
     Route::get('missed-form', [App\Http\Controllers\ServiceController::class, 'missedForm']);
 });
 
+
 //Route for Business Claim
-Route::group(['prefix' => 'businesses-claims'], function () {
+Route::group(['prefix' => 'businesses-claims', 'middleware' => ['sentinel']], function () {
     Route::get('view', [App\Http\Controllers\ClaimController::class, 'index']);
     Route::get('{claim_id}/show', [App\Http\Controllers\ClaimController::class, 'show']);
     Route::post('{claim_id}/transfer', [App\Http\Controllers\ClaimController::class, 'transfer']);
@@ -96,7 +97,7 @@ Route::group(['prefix' => 'businesses-claims'], function () {
 });
 
 //Route for category
-Route::group(['prefix' => 'categories'], function () {
+Route::group(['prefix' => 'categories', 'middleware' => ['sentinel']], function () {
     Route::get('view', [App\Http\Controllers\CategoryController::class, 'index']);
     Route::get('create',[App\Http\Controllers\CategoryController::class, 'create']);
     Route::post('store', [App\Http\Controllers\CategoryController::class, 'store']);
@@ -105,7 +106,7 @@ Route::group(['prefix' => 'categories'], function () {
 });
 
 //Route for role
-Route::group(['prefix' => 'roles'], function () {
+Route::group(['prefix' => 'roles', 'middleware' => ['sentinel']], function () {
     Route::get('view', [App\Http\Controllers\RoleController::class, 'index']);
     Route::get('create',[App\Http\Controllers\RoleController::class, 'create']);
     Route::post('store', [App\Http\Controllers\RoleController::class, 'store']);
@@ -115,7 +116,7 @@ Route::group(['prefix' => 'roles'], function () {
 });
 
 //Route for Users
-Route::group(['prefix' => 'users'], function () {
+Route::group(['prefix' => 'users', 'middleware' => ['sentinel']], function () {
     Route::get('view', [App\Http\Controllers\UserController::class, 'index']);
     Route::get('create', [App\Http\Controllers\UserController::class, 'create']);
     Route::post('store', [App\Http\Controllers\UserController::class, 'store']);
@@ -157,7 +158,7 @@ Route::get('overview/business', [App\Http\Controllers\OwnerController::class, 'o
 
 
 
-Route::group(['prefix' => 'business'], function () {
+Route::group(['prefix' => 'business', 'middleware' => ['sentinel']], function () {
 
     Route::get('view', [App\Http\Controllers\OwnerController::class, 'indexBusiness']);
     Route::get('terms-and-condition', [App\Http\Controllers\OwnerController::class, 'termsCondition']);
@@ -194,7 +195,7 @@ Route::group(['prefix' => 'business'], function () {
 
 });
 
-Route::group(['prefix' => 'claims'], function () {
+Route::group(['prefix' => 'claims', 'middleware' => ['sentinel']], function () {
     Route::get('create', [App\Http\Controllers\OwnerController::class, 'createClaimsBusiness']);
     Route::post('search', [App\Http\Controllers\OwnerController::class, 'searchClaimsBusiness']);
     Route::get('{claim_id}/claim-details', [App\Http\Controllers\OwnerController::class, 'claimsDetailsBusiness']); 

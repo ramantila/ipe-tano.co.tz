@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    Add Service
+    Edit Service
 @endsection
 @section('content')
     <div class="page-header">
@@ -10,7 +10,7 @@
                     {{-- <i class="ik ik-shopping-cart bg-blue"></i> --}}
                     <div class="d-inline">
                         <h5>Service</h5>
-                        <span>Add Service</span>
+                        <span>Edit Service</span>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3>Add Service</h3>
+                    <h3>Edit Service</h3>
                     <div class="card-header-right">
                     </div>
                 </div>
