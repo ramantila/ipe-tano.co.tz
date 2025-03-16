@@ -203,12 +203,19 @@ class ConsumerController extends Controller
 
     public function registerProcess(Request $request)
     {
-
         $phone = $request->phone;
 
         // Check if the number starts with '255' and convert it to local format
         if (substr($phone, 0, 3) === '255') {
             $phone = '0' . substr($phone, 3);
+        }
+
+        // Check if the email already exists
+        $existingUser = Sentinel::findByCredentials(['login' => $request->email]);
+
+        if ($existingUser) {
+            Session::flash('error', 'The email address is already registered. Please use a different email.');
+            return redirect()->back()->withInput(); // Redirect back with the input data
         }
 
         $credentials = [
@@ -246,28 +253,6 @@ class ConsumerController extends Controller
         Session::flash('success', 'Registered successfully!');
 
         return redirect('/login');
-
-        // if ($user)
-        // {
-        //     // Mail::to($user->email)->send(new RegisterMail());
-
-        //     if(Session::get('type') == 'business')
-        //     {
-        //         return redirect('consumer/business/write-review/'.Session::get('company_id'));
-        //     }
-        //     if(Session::get('type') == 'product')
-        //     {
-        //         return redirect('consumer/product/write-review/'.Session::get('product_id'));
-        //     }
-        //     if(Session::get('type') == 'service')
-        //     {
-        //         return redirect('consumer/service/write-review/'.Session::get('service_id'));
-        //     }
-        // }
-
-        // Session::flash('success', 'Registered  successfull!');
-        // return redirect('/login');
-
     }
 
     public function productReviewReported($review_id)
@@ -372,6 +357,22 @@ class ConsumerController extends Controller
         return view('business_fontend.pricing');
     }
 
+    public function emailConfirmation($userId){
+        $user = User::find($userId);
 
+        if ($user) {
+            $user->email_confirmed = now();
+            $user->save();
+
+            // Flash a success message (Optional)
+            Session::flash('success', 'Your email has been confirmed successfully. Please login.');
+        } else {
+            // Flash an error message (Optional)
+            Session::flash('error', 'User not found.');
+        }
+
+        // Redirect to the login page
+        return redirect('/login');
+    }
 
 }

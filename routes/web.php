@@ -33,18 +33,19 @@ Route::get('category-businesses/{category_name}', [App\Http\Controllers\Consumer
 Route::get('terms-and-conditions', [App\Http\Controllers\ConsumerController::class, 'terms']);
 Route::get('register', [App\Http\Controllers\ConsumerController::class, 'register']);
 Route::post('register', [App\Http\Controllers\ConsumerController::class, 'registerProcess']);
-Route::get('password/forget', [App\Http\Controllers\ConsumerController::class, 'forget']);
+//Route::get('password/forget', [App\Http\Controllers\ConsumerController::class, 'forget']);
 Route::get('consumer/product/review/reported/{review_id}', [App\Http\Controllers\ConsumerController::class, 'productReviewReported']);
 Route::post('consumer/product/review/reported/{review_id}', [App\Http\Controllers\ConsumerController::class, 'storeproductReviewReported']);
 Route::get('consumer/service/review/reported/{review_id}', [App\Http\Controllers\ConsumerController::class, 'serviceReviewReported']);
 Route::post('consumer/service/review/reported/{review_id}', [App\Http\Controllers\ConsumerController::class, 'storeserviceReviewReported']);
+Route::get('{userId}/email-confirmed', [App\Http\Controllers\ConsumerController::class, 'emailConfirmation']);
 
 
 Route::get('/login', [App\Http\Controllers\LoginController::class, 'login'])->name('login-user');
 Route::post('postLogin', [App\Http\Controllers\LoginController::class, 'processLogin'])->name('processLogin');
 Route::get('password/forget', [App\Http\Controllers\LoginController::class, 'forgetPassword']);
 Route::post('password/forget', [App\Http\Controllers\LoginController::class, 'forgetEmailCheck']);
-Route::get('password/reset-with-code', [App\Http\Controllers\LoginController::class, 'passwordReset']);
+Route::get('password/reset-password', [App\Http\Controllers\LoginController::class, 'passwordReset']);
 Route::post('password/reset', [App\Http\Controllers\LoginController::class, 'passwordResetCodeCheck']);
 
 Route::get('/business-login', [App\Http\Controllers\LoginController::class, 'loginforBusiness']);
@@ -64,7 +65,7 @@ Route::group(['prefix' => 'businesses', 'middleware' => ['sentinel']], function 
     Route::post('store', [App\Http\Controllers\BusinnessController::class, 'store']);
     Route::get('{business_id}/show', [App\Http\Controllers\BusinnessController::class, 'show']);
     Route::get('{business_id}/edit', [App\Http\Controllers\BusinnessController::class, 'edit']);
-    Route::post('{business_id}/update', [App\Http\Controllers\BusinnessController::class, 'update']); 
+    Route::post('{business_id}/update', [App\Http\Controllers\BusinnessController::class, 'update']);
     Route::get('{business_id}/suspend', [App\Http\Controllers\BusinnessController::class, 'suspend']);
     Route::get('{business_id}/business/verify', [App\Http\Controllers\BusinnessController::class, 'businessVerify']);
     Route::post('{business_id}/delete', [App\Http\Controllers\BusinnessController::class, 'delete']);
@@ -122,7 +123,7 @@ Route::group(['prefix' => 'users', 'middleware' => ['sentinel']], function () {
     Route::post('store', [App\Http\Controllers\UserController::class, 'store']);
     Route::get('{user_id}/edit', [App\Http\Controllers\UserController::class, 'edit']);
     Route::post('{user_id}/update', [App\Http\Controllers\UserController::class, 'update']);
-    Route::post('{user_id}/delete', [App\Http\Controllers\UserController::class, 'delete']); 
+    Route::post('{user_id}/delete', [App\Http\Controllers\UserController::class, 'delete']);
 
     Route::get('change-password', [App\Http\Controllers\UserController::class, 'changePassword']);
     Route::post('change-password', [App\Http\Controllers\UserController::class, 'changePasswordSave']);
@@ -198,7 +199,7 @@ Route::group(['prefix' => 'business', 'middleware' => ['sentinel']], function ()
 Route::group(['prefix' => 'claims', 'middleware' => ['sentinel']], function () {
     Route::get('create', [App\Http\Controllers\OwnerController::class, 'createClaimsBusiness']);
     Route::post('search', [App\Http\Controllers\OwnerController::class, 'searchClaimsBusiness']);
-    Route::get('{claim_id}/claim-details', [App\Http\Controllers\OwnerController::class, 'claimsDetailsBusiness']); 
+    Route::get('{claim_id}/claim-details', [App\Http\Controllers\OwnerController::class, 'claimsDetailsBusiness']);
     Route::post('{claim_id}/session', [App\Http\Controllers\OwnerController::class, 'sessionClaimsBusiness']);
     Route::post('{claim_id}/store', [App\Http\Controllers\OwnerController::class, 'storeClaimsBusiness']);
     Route::get('view', [App\Http\Controllers\OwnerController::class, 'indexClaimsBusiness']);
@@ -214,15 +215,15 @@ Route::group(['prefix' => 'reviews-business'], function () {
 
 // =================================  CONSUMER ===========================================================
 Route::group(['prefix' => 'consumer'], function () {
-    Route::get('view', [App\Http\Controllers\UserConsumerController::class, 'index']); 
+    Route::get('view', [App\Http\Controllers\UserConsumerController::class, 'index']);
     Route::get('business/write-review/{company_id}', [App\Http\Controllers\UserConsumerController::class, 'comment']);
     Route::get('product/write-review/{product_id}', [App\Http\Controllers\UserConsumerController::class, 'productReview']);
     Route::get('service/write-review/{service_id}', [App\Http\Controllers\UserConsumerController::class, 'serviceReview']);
     Route::get('product/read-more/{product_id}', [App\Http\Controllers\UserConsumerController::class, 'productReadmore']);
     Route::get('service/read-more/{product_id}', [App\Http\Controllers\UserConsumerController::class, 'serviceReadmore']);
     Route::get('evaluate/company', [App\Http\Controllers\UserConsumerController::class, 'evaluate']);
-    Route::get('review-list/{business_id}', [App\Http\Controllers\UserConsumerController::class, 'reviewList']); 
-    Route::get('all-review-list', [App\Http\Controllers\UserConsumerController::class, 'allReviewList']); 
+    Route::get('review-list/{business_id}', [App\Http\Controllers\UserConsumerController::class, 'reviewList']);
+    Route::get('all-review-list', [App\Http\Controllers\UserConsumerController::class, 'allReviewList']);
     Route::get('product-review-list/{product_id}', [App\Http\Controllers\UserConsumerController::class, 'productReviewList']);
     Route::get('service-review-list/{service_id}', [App\Http\Controllers\UserConsumerController::class, 'serviceReviewList']);
     Route::post('review-store', [App\Http\Controllers\UserConsumerController::class, 'storeReview']);

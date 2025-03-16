@@ -28,8 +28,8 @@
 </head>
 <style>
 .auth-wrapper .authentication-form {
-    width: 100%; 
-    max-width: 700px; 
+    width: 100%;
+    max-width: 700px;
     /* Set a max-width to make the form look neat */
     margin: 0 auto;
 }
@@ -75,6 +75,17 @@
                     <div class="logo-centered">
                         <img height="60" src="{{asset('themes/img/ipetano-logo-primary.png')}}" alt="Ipe Tano Logo">
                     </div>
+                    @if(Session::has('success'))
+                        <div class="alert alert-success">
+                            {{ Session::get('success') }}
+                        </div>
+                    @endif
+
+                    @if(Session::has('error'))
+                        <div class="alert alert-danger">
+                            {{ Session::get('error') }}
+                        </div>
+                    @endif
                     <p>{{ __('messages.join_us') }}</p>
                     <form action="{{ url('register') }}" method="post" id="registrationForm">
                         @csrf
@@ -253,7 +264,7 @@
                     Tanzania Product Review Company Limited,<br>
                     Dar es Salaam, Tanzania</p>
             </div>
-           
+
             <div class="modal-footer">
                 <button type="button" id="myButton" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                  <button type="submit"class="btn btn-primary" onclick="submitForm()">Accept and Submit</button>
@@ -275,7 +286,7 @@
         // Function to check if modal is scrolled to the bottom
         modalBody.addEventListener('scroll', function () {
             const isAtBottom = modalBody.scrollHeight === modalBody.scrollTop + modalBody.clientHeight;
-            
+
             if (isAtBottom) {
                 acceptBtn.disabled = false; // Enable the button when scrolled to the bottom
             }
@@ -287,7 +298,7 @@
 
         // Perform validation here if needed
 
-   
+
 });
     });
 

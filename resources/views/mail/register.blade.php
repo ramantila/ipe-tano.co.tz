@@ -4,7 +4,7 @@
 
 <h4>Dear <b>{{ $data->first_name }} {{ $data->last_name }}</b>,</h4>
 
-<p>You have successfully created an account with Ipe Tano. Click <a href="{{ url('/'.$user->id.'/email-confirmed') }}">here</a> to confirm your email.</p>
+<p>You have successfully created an account with Ipe Tano. Click <a href="{{ url('/'.$data->id.'/email-confirmed') }}">here</a> to confirm your email.</p>
 
 <p>Kind regards,<br>
 Ipe Tano Admin.</p>

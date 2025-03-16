@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Session;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Support\Facades\Mail;
+use function PHPUnit\Framework\isEmpty;
 
 class LoginController extends Controller
 {
@@ -43,10 +44,16 @@ class LoginController extends Controller
 
             if ($user) {
 
-                if ($user->inRole('business')) {
-                    return redirect('dashboard/business');
+                if ($user->inRole('business') ) {
+                    if (!isEmpty($user->email_confirmed)){
+                        return redirect('dashboard/business');
+                    }
+                   else{
+                       Session::flash('error', "Please verify your email address.");
+                       return redirect('login');
+                   }
                 }
-                if ($user->inRole('consumer')) {
+                elseif ($user->inRole('consumer')) {
                     // return Session::get('rating_input');
                     // return redirect('consumer/evaluate/company');
                     // $data = array(
@@ -60,11 +67,14 @@ class LoginController extends Controller
                     if (Session::get('type') == 'business') {
                         return redirect('consumer/business/write-review/' . Session::get('company_id'));
                     }
-                    if (Session::get('type') == 'product') {
+                    elseif (Session::get('type') == 'product') {
                         return redirect('consumer/product/write-review/' . Session::get('product_id'));
                     }
-                    if (Session::get('type') == 'service') {
+                    elseif (Session::get('type') == 'service') {
                         return redirect('consumer/service/write-review/' . Session::get('service_id'));
+                    }
+                    else{
+                        return redirect('/');
                     }
                 }
                 return redirect('dashboard');
@@ -296,8 +306,8 @@ class LoginController extends Controller
         if ($user) {
             $user->save();
 
-            // Mail::to($user->email)->send(new ResetToken($user));
-
+             Mail::to($user->email)->send(new ResetToken($user));
+            Session::put('email', $request->email);
             Session::flash('success', 'An email has been sent to ' . $request->email . '. Please check your inbox.');
             return redirect()->back()->withInput();
         } else {
