@@ -21,7 +21,16 @@ return [
     'view_all' => 'View All',
     'view_all1'=>'All',
     'categories_list' => [
-
+     'washereheshaji_mcs' => 'celebrities and Mcs',
+     'kumbi_za_mikutano_harusi' => 'Conference and wedding halls',
+     'media_and_publishing' => 'Media and Publishing',
+     'barber_shops' => 'Barber Shops',
+     'manunuzi_(shopping)' => 'Shopping',
+     'ujenzi_(construction)' => 'Construction',
+     'hotel' => 'Hotel',
+     'banking' => 'Banking',
+     'beauty' => 'Beauty',
+     'telecommunication' => 'Telecommmunication',
     'mitandao_ya_simu' => 'Mobile Networks',
     'migahawa' => 'Restaurants',
     'kumbi_za_starehe' => 'Entertainment Venues',

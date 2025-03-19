@@ -67,7 +67,7 @@
                 <li><a href="{{ url('/login') }}" class="login" title="{{ __('messages.signin') }}">{{ __('messages.signin') }}</a></li>
             </ul>
             <!-- /top_menu -->
-            <a href="javascript:void(0);"  href="#menu" class="btn_mobile">
+            <a href="#menu" class="btn_mobile">
                 <div class="hamburger hamburger--spin" id="hamburger">
                     <div class="hamburger-box">
                         <div class="hamburger-inner" id="menu1"></div>

@@ -1,4 +1,24 @@
+<style>
+ .review-image-container {
+    width: 80px; /* Adjust as needed */
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
 
+.review-image {
+    width: 150%;
+    height: 150!important%;
+    object-fit: cover; /* Fills the area without distortion */
+    object-position: center; /* Centers the image */
+}
+
+</style>
 <script>
   const heroTextMain = document.querySelector('.hero_text_main');
     const cursor = document.querySelector('.cursor');
@@ -321,34 +341,44 @@
         container.innerHTML = ''; // Clear existing reviews
 
         reviews.forEach(function(review) {
+        
             console.log("Category from review:", review.business.category.category_name);  // Log the category name for debugging
 
             // Ensure the category is correctly passed and translated
             var translatedCategory = getTranslatedCategory(review.business.category.category_name);
             console.log('translated'+translatedCategory)
 
-            var companyLogo = review.company_logo !== null ? '/images/business/' + review.company_logo : '/themes/img/avatar3.jpg';
+            var baseUrl = window.location.origin;
+
+var companyLogo = review.company_logo !== null 
+    ? baseUrl + '/images/business/' + review.company_logo 
+    : baseUrl + '/themes/img/avatar3.jpg';
+
+          
 
             var reviewHTML =
-                '<div class="col-sm-4 ">' +
-                    '<div class="item shadow transition-card mt-5 ml-4">' +
-                        '<div class="review_listing">' +
-                            '<div class="clearfix">' +
-                                '<figure><img src="' + companyLogo + '" alt=""></figure>' +
-                                '<span class="rating">' + getStarIcons(review.rating) + '<em>' +
-                                review.rating + '/5.00</em></span>' +
-                                '<small>' + review.business.business_name + '</small>' +
-                                '<small>' + translatedCategory + '</small>' +  // Use translated category
-                            '</div>' +
-                            '<h3><strong>' + review.user.first_name + ' ' + review.user.last_name + '</strong></h3>' +
-                            '<p>' + truncateText(review.review, 40) + '</p>' +
-                            '<ul class="clearfix">' +
-                                '<li><small>' + translate('published') + ': ' + formatDateToDMY(review.created_at) + '</small></li>' +
-                                '<li><a href="business/reviews/' + review.business_id + '" class="btn_1 small">' + translate('readReview') + '</a></li>' +
-                            '</ul>' +
-                        '</div>' +
-                    '</div>' +
-                '</div>';
+    '<div class="col-sm-4 ">' +
+        '<div class="item shadow transition-card mt-5 ml-4">' +
+            '<div class="review_listing">' +
+                '<div class="clearfix">' +
+                    '<figure class="review-image-container">' +
+                        '<img src="' + companyLogo + '" alt="" class="review-image">' +
+                    '</figure>' +
+                    '<span class="rating">' + getStarIcons(review.rating) + '<em>' +
+                    review.rating + '/5.00</em></span>' +
+                    '<small>' + review.business.business_name + '</small>' +
+                    '<small>' + translatedCategory + '</small>' + 
+                '</div>' +
+                '<h3><strong>' + review.user.first_name + ' ' + review.user.last_name + '</strong></h3>' +
+                '<p>' + truncateText(review.review, 40) + '</p>' +
+                '<ul class="clearfix">' +
+                    '<li><small>' + translate('published') + ': ' + formatDateToDMY(review.created_at) + '</small></li>' +
+                    '<li><a href="business/reviews/' + review.business_id + '" class="btn_1 small">' + translate('readReview') + '</a></li>' +
+                '</ul>' +
+            '</div>' +
+        '</div>' +
+    '</div>';
+
 
             container.innerHTML += reviewHTML;
         });
@@ -391,7 +421,7 @@
         fetchRecentReviews();
     });
 </script>
-=======
+
 <script>
   const heroTextMain = document.querySelector('.hero_text_main');
     const cursor = document.querySelector('.cursor');

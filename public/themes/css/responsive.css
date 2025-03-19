@@ -51,10 +51,7 @@
         text-align: center;
     }
 
-    .item{
-        margin-left: 1em!important;
-    }
-    
+
     .wow {
         animation: none !important;
         visibility: visible !important; /* Ensure the elements are visible */

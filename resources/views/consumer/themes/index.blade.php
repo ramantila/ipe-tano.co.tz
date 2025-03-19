@@ -15,7 +15,7 @@
 body{
     background-color:#eef3f7!important;
 }
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
     
 .col-31 {
     flex: 0 0 auto; 
@@ -33,6 +33,26 @@ body{
 
 
 }
+} */
+@media (max-width: 767px) {
+    .row1 {
+        text-align:center;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+        grid-template-rows: repeat(2, auto); /* 2 rows */
+        gap: 0; /* Removes extra spacing between items */
+    }
+
+    .col-31 {
+        width: 100%; /* Ensures each item fits perfectly */
+        padding: 0; /* Removes any extra padding */
+        margin: 0; /* Ensures no extra margin */
+    }
+
+    .category-item {
+        display: block;
+        padding: 0; /* Completely removes extra spacing inside */
+    }
 }
 
 </style>
@@ -198,13 +218,13 @@ body{
 
     <?php $categories = App\Models\Category::paginate(8); ?>
 
-    <div class="scroll-indicator d-block d-md-none text-center">
+    {{-- <div class="scroll-indicator d-block d-md-none text-center">
         <span>← {{ __('messages.scroll') }} →</span>
-    </div>
+    </div> --}}
 
-    <div class="row row1  ">
+    <div class="row row1 justify-content-center text-center">
         @foreach ($categories as $key)
-            <div class="col-31 col-md-6 my-3 ">
+            <div class="col-31 col-md-6 " style="margin-left: 50px">
                 <a href="{{ url('category-businesses/'.$key->category_name) }}" class="text-center category-item">
                     <img src="{{ url('images/category/' . $key->category_icon) }}" class="category-icon" alt="">
                     <h4 class="category-name">{{ __('messages.categories_list.' . strtolower(str_replace(' ', '_', $key->category_name))) }}</h4>
@@ -344,7 +364,7 @@ body{
                     </div> --}}
 
                     <div class="col-md-4 mb-4">
-                        <div class="card h-80 shadow transition-card">
+                        <div class="card h-80 shadow">
                             <div class="card-body d-flex align-items-center">
                                 <img src="{{ url('images/business/' . $top->logo) }}" alt="Company Image" class="rounded-circle me-3" style="width: 60px; height: 60px; ">
                                 <div>

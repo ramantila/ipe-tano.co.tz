@@ -80,6 +80,7 @@
                         <div class="clearfix add_bottom_30 ">
                             <ul class="list-unstyled row ">
                                 @foreach ($data as $index => $key)
+                                 
                                     <li class="col-md-4 mb-3 justify-content-center "> <!-- Remove text-center class -->
                                         <a href="{{ url('category-businesses/'.$key->category_name) }}" class="companiescat">
                                             {{ __('messages.categories_list.' . strtolower(str_replace(' ', '_', $key->category_name))) }}
