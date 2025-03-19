@@ -22,12 +22,12 @@ class ConsumerController extends Controller
 {
     public function index()
     {
-    
+
         $topCompanies = Business::where('total_rating', '>', 2)
         ->where('total_rating', '<=', 5)
-        ->take(3) 
+        ->take(3)
         ->get();
-        
+
         $categories = Category::take(6)->get();
 
         return view('.consumer.themes.index', compact('topCompanies', 'categories'));
@@ -102,7 +102,7 @@ class ConsumerController extends Controller
         ->paginate(10);
         $bestCompanies = Business::take(15)->orderBy('total_rating','DESC')->get(['business_name', 'logo','id']);
         $topCategories = Category::take(15)->get(['category_name','category_icon']);
-      
+
 
 
         return view('consumer.themes.reviews.reviews', compact('businesses', 'categories','search','bestCompanies','topCategories'));
@@ -203,64 +203,56 @@ class ConsumerController extends Controller
 
     public function registerProcess(Request $request)
     {
-
         $phone = $request->phone;
 
-        // Check if the number starts with '255'
+        // Check if the number starts with '255' and convert it to local format
         if (substr($phone, 0, 3) === '255') {
-            // Remove '255' and add '0' at the beginning
             $phone = '0' . substr($phone, 3);
         }
 
+        // Check if the email already exists
+        $existingUser = Sentinel::findByCredentials(['login' => $request->email]);
+
+        if ($existingUser) {
+            Session::flash('error', 'The email address is already registered. Please use a different email.');
+            return redirect()->back()->withInput(); // Redirect back with the input data
+        }
+
         $credentials = [
-            'email' => $request->email,
-            'phone' => $phone,
-            'password' => $request->password,
+            'email'      => $request->email,
+            'phone'      => $phone,
+            'password'   => $request->password,
             'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'region_id' => $request->region_id,
-            'gender' => $request->gender,
-            'dob' => $request->dob,
+            'last_name'  => $request->last_name,
+            'region_id'  => $request->region_id,
+            'gender'     => $request->gender,
+            'dob'        => $request->dob,
         ];
 
+        // Register and activate the user
         $user = Sentinel::registerAndActivate($credentials);
+
+        // Assign role to user
         $role = Sentinel::findRoleByName('consumer');
         $role->users()->attach($user->id);
 
-        $credentials = array(
-            "email" => $request->email,
-            "password" => $request->password,
-        );
+        // Authenticate user
+        $authUser = Sentinel::authenticate([
+            'email'    => $request->email,
+            'password' => $request->password,
+        ]);
 
-        $user = Sentinel::authenticate($credentials);
+        if (!$authUser) {
+            Session::flash('error', 'Authentication failed!');
+            return redirect()->back();
+        }
 
-        Mail::to($user->email)->send(new RegisterMail());
+        // Send the registration email
+        Mail::to($user->email)->send(new RegisterMail($user));
 
-        Session::flash('success', 'Registered  successfull!');
+        Session::flash('success', 'Registered successfully!');
 
         return redirect('/login');
-
-        // if ($user)
-        // {
-        //     // Mail::to($user->email)->send(new RegisterMail());
-
-        //     if(Session::get('type') == 'business')
-        //     {
-        //         return redirect('consumer/business/write-review/'.Session::get('company_id'));
-        //     }
-        //     if(Session::get('type') == 'product')
-        //     {
-        //         return redirect('consumer/product/write-review/'.Session::get('product_id'));
-        //     }
-        //     if(Session::get('type') == 'service')
-        //     {
-        //         return redirect('consumer/service/write-review/'.Session::get('service_id'));
-        //     }
-        // }
-
-        // Session::flash('success', 'Registered  successfull!');
-        // return redirect('/login');
-
     }
 
     public function productReviewReported($review_id)
@@ -353,9 +345,9 @@ class ConsumerController extends Controller
     public function whyUsBusiness(){
         return   view('business_fontend.why-us');
     }
-    
-    
-    
+
+
+
     public function contactBusiness(){
         return   view('business_fontend.contact');
     }
@@ -364,7 +356,23 @@ class ConsumerController extends Controller
     public function pricingBusiness(){
         return view('business_fontend.pricing');
     }
-    
 
+    public function emailConfirmation($userId){
+        $user = User::find($userId);
+
+        if ($user) {
+            $user->email_confirmed = now();
+            $user->save();
+
+            // Flash a success message (Optional)
+            Session::flash('success', 'Your email has been confirmed successfully. Please login.');
+        } else {
+            // Flash an error message (Optional)
+            Session::flash('error', 'User not found.');
+        }
+
+        // Redirect to the login page
+        return redirect('/login');
+    }
 
 }

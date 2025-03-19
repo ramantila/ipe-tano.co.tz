@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3056c0aa-240b-48e8-a129-07b99f0db007" name="IPETANO">
+        <fileTransfer rootFolder="/var/www/ipetano.co.tz" accessType="SFTP" host="67.211.211.11" port="22" sshConfigId="83f134ac-6ca1-45a6-96df-c9fbbd074bee" sshConfig="root@67.211.211.11:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
