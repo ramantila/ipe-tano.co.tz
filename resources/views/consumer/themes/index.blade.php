@@ -47,6 +47,7 @@ body{
         width: 100%; /* Ensures each item fits perfectly */
         padding: 0; /* Removes any extra padding */
         margin: 0; /* Ensures no extra margin */
+        
     }
 
     .category-item {
@@ -56,7 +57,70 @@ body{
 }
 
 </style>
+<style>
+    /* Center content and add spacing */
+    .search-container {
+        max-width: 100%;
+        margin: 30px auto;
+        padding: 20px;
+       
+        border-radius: 10px;
+    }
 
+    /* Style the input fields */
+    input[type="text"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    /* Search results section */
+    #searchResults {
+        margin-top: 10px;
+        padding: 10px;
+        background: white;
+        border-radius: 5px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style each result */
+    .search-result {
+        color: black !important;
+        font-size: 16px;
+        padding: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+   
+
+    .search-result:last-child {
+        border-bottom: none;
+    }
+
+    #searchResults {
+    color: black !important; /* Force text to be black */
+}
+
+.search-result {
+    color: black !important; /* Black color for search results */
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.search-result a {
+    color: black; /* Black color for links */
+    text-decoration: none; /* Remove underline */
+    cursor: default; /* Default cursor initially */
+}
+
+.search-result a:hover {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    text-decoration: none; /* Ensure no underline on hover */
+}
+    
+</style>
 <body>
 
     <div id="page">
@@ -80,23 +144,190 @@ body{
                                     style="font-size:3.5em;font-family: Kumbh Sans, sans-serif !important;">{{ __('messages.comment_product') }}</h3>
                                     <p class="wajulishe">{{ __('messages.share_experience') }}</p>
                                 </div>
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <style>
+                                    input[type="text"] {
+                                        width: 100%;
+                                        padding: 12px;
+                                        margin: 10px 0;
+                                        border: 1px solid #ccc;
+                                        border-radius: 5px;
+                                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                                        font-size: 16px;
+                                    }
 
-                                <form method="post" action="grid-listings-filterscol.html">
-                                    <div class="custom-search-input-2">
-                                        <div class="form-group">
-                                            <input class="form-control" type="text" id="search-query"
-                                                placeholder="{{ __('messages.search_companies') }}"
-                                                onkeyup="searchCompanies()">
-                                            <i class="icon_search"></i>
-                                            <div id="results" class="search-results">
-                                            </div>
-                                            <input class="form-control" type="text" id="search-product-query"
-                                                placeholder="{{ __('messages.product_or_service') }}" onkeyup="searchProduct()">
-                                            <i class="icon_search"></i>
-                                            <div id="search-results" class="search-results">
-                                                {{-- <input type="submit" value="Search"> --}}
-                                            </div>
-                                </form>
+                                    input[type="text"]:focus {
+                                        border-color: #007bff;
+                                        outline: none;
+                                    }
+
+                                    /* Search Results Container */
+                                    #searchResults {
+                                        display:  none;  /* Initially hidden */
+                                        margin-top: 20px;
+                                        background: #ffffff;
+                                        border: 1px solid #ccc;
+                                        border-radius: 5px;
+                                        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                                        max-height: 300px;
+                                        overflow-y: auto;
+                                    }
+
+                                    /* Result Items */
+                                    .result-item {
+                                        padding: 15px;
+                                      
+                                        transition: background 0.2s;
+                                    }
+
+                                    .result-item:last-child {
+                                        border-bottom: none;
+                                    }
+
+                                    .result-item h3 {
+                                        margin: 0;
+                                        color: #007bff;
+                                        font-size: 10px;
+                                    }
+
+                                    .result-item p {
+                                        margin: 5px 0;
+                                        color: #555;
+                                    }
+
+                                    .result-item:hover {
+                                        background: #f1f1f1;
+                                        cursor: pointer;
+                                    }
+
+                                    /* No Results */
+                                    #noResults {
+                                        padding: 15px;
+                                        text-align: center;
+                                        color: #777;
+                                    }
+                                 
+                                    .search-result a:hover{
+                                        cursor: pointer;
+                                        }
+                           </style>
+                         <div class="search-container">
+                            <input type="text" id="company" name="company" placeholder="{{ __('messages.search_companies') }}">
+                            <input type="text" id="productService" name="productService" placeholder="{{ __('messages.search_products_services') }}">
+                            
+                            <!-- Search Results -->
+                            <div id="searchResults" style="z-index:100000!important"></div>
+                        </div>
+                        
+                        <script>
+                            $(document).ready(function () {
+                                // Pass the translations from PHP to JavaScript
+                                const translations = {
+                                    noResults: @json(__('messages.no_results')),
+                                    from: @json(__('messages.from')) // Translate "from" here
+                                };
+                        
+                                function search(type, query) {
+                                    console.log("Searching:", { type, query });
+                        
+                                    $.ajax({
+                                        url: "{{ route('search') }}",
+                                        type: "GET",
+                                        data: { type: type, query: query },
+                                        success: function (data) {
+                                            console.log("Response:", data);
+                                            let output = "";
+                        
+                                            if (data.length === 0) {
+                                                output = `<div class="search-result">${translations.noResults}</div>`;
+                                            } else {
+                                                data.forEach(item => {
+                                                    // Create links based on type and item id
+                                                    if (type === "companies") {
+                                                        output += `<div class="search-result"><a href="/business/reviews/${item.id}" style="color: #756c6b;">${item.business_name}</a></div>`;
+                                                    } else if (type === "products") {
+                                                        output += `<div class="search-result"><a href="cunsumer/product/read-more/${item.id}" style="color: #756c6b;">
+                                                        ${item.product_name} ${translations.from} <span style="font-weight: bold;color:#000!important">${item.business_name}</span>
+                                                    </a></div>`;} else if (type === "services") {
+                                                        output += `<div class="search-result"><a href="consumer/service/read-more/${item.id}" style="color: #756c6b;">
+                                                            ${item.service_name} ${translations.from} <span style="font-weight: bold;color:#000">${item.business_name}</span>
+                                                        </a></div>`;
+                                                    }
+
+                                                });
+                                            }
+                        
+                                            // Show results only if there is data
+                                            if (output !== "") {
+                                                $("#searchResults").html(output).fadeIn();
+                                            } else {
+                                                $("#searchResults").fadeOut();
+                                            }
+                                        },
+                                        error: function (xhr, status, error) {
+                                            console.error("AJAX Error:", { status, error, responseText: xhr.responseText });
+                                        }
+                                    });
+                                }
+                        
+                                // Function to handle search
+                                function handleSearch(inputId, type) {
+                                    $(inputId).on("keyup", function () {
+                                        let query = $(this).val();
+                                        if (query.length > 0) {
+                                            $("#searchResults").html("").fadeIn();
+                                            search(type, query);
+                                        } else {
+                                            $("#searchResults").fadeOut();
+                                        }
+                                    });
+                                }
+                        
+                                // Attach search to both inputs
+                                handleSearch("#company", "companies");
+                                handleSearch("#productService", "products");
+                                handleSearch("#productService", "services");
+                            });
+                        </script>
+                        
+                            
+                            
+                            <!-- CSS for Black Text -->
+                            <style>
+                                #searchResults {
+                                    color: black !important; /* Force text to be black */
+                                }
+                            
+                                .search-result {
+                                    color: black !important; /* Black color for search results */
+                                    font-weight: bold;
+                                    margin: 5px 0;
+                                }
+                            
+                                .search-result a {
+                                    color: black; /* Black color for links */
+                                    text-decoration: none; /* Remove underline */
+                                }
+                            
+                                .search-result a:hover {
+                                    text-decoration: underline; /* Optional: Underline on hover */
+                                }
+                            </style>
+                            
+                                <!-- CSS for Black Text -->
+                                <style>
+                                    #searchResults {
+                                        color: black !important; /* Force text to be black */
+                                    }
+                                
+                                    .search-result {
+                                        color: black !important; /* Black color for search results */
+                                        font-weight: bold;
+                                        margin: 5px 0;
+                                    }
+                                </style>
+
+                                
                             </div>
 
                         </div>
@@ -210,10 +441,24 @@ body{
 
            <div class="container margin_60_35">
     <div class="main_title_3">
-        <h2 class="">{{ __('messages.top_categories') }}</h2>
-        <p class="">{{ __('messages.discover_top_categories') }}</p>
+       
+        <h2 class="top-categories" style="z-index: -9999!important;">{{ __('messages.top_categories') }}</h2>
 
-        <a class="viewall bi1"href="{{ url('categories') }}">{{ __('messages.view_all1') }}</a>
+        <style>
+            /* Optionally, you can set additional styles */
+            .top-categories {
+                position: relative;  /* Ensure the element is in the stacking context */
+            }
+        </style>
+        <p class="discover-top-categories" style="z-index: -9999!important;">{{ __('messages.discover_top_categories') }}</p>
+
+        <style>
+            /* Optionally, you can set additional styles */
+            .discover-top-categories {
+                position: relative;  /* Ensure the element is in the stacking context */
+            }
+        </style>
+        <a class="viewall bi1" style="z-index:-100!important" href="{{ url('categories') }}">{{ __('messages.view_all1') }}</a>
     </div>
 
     <?php $categories = App\Models\Category::paginate(8); ?>
@@ -222,7 +467,7 @@ body{
         <span>← {{ __('messages.scroll') }} →</span>
     </div> --}}
 
-    <div class="row row1 justify-content-center text-center">
+    <div class="row row1 ">
         @foreach ($categories as $key)
             <div class="col-31 col-md-6 " style="margin-left: 50px">
                 <a href="{{ url('category-businesses/'.$key->category_name) }}" class="text-center category-item">

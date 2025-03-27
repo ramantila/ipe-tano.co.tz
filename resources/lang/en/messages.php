@@ -201,5 +201,8 @@ return [
      'lets_get_started'=>"Let's get started",
      'join_now'=>'Join Now',
      'welcome_to_ipetano_platform'=>'Welcome to Ipe Tano, Your Trusted Review Platform',
-
+'search_companies' => 'Search Companies',
+    'search_products_services' => 'Search Products or Services',
+    'no_results' => 'No results found',
+    'from' => 'from',
 ];

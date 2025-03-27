@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -278,3 +278,6 @@ Route::prefix('for-business')->group(function () {
 Route::get('/home', function () {
     return redirect('/for-business/home');
 });
+
+
+Route::get('/search', [SearchController::class, 'search'])->name('search');

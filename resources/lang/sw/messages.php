@@ -218,5 +218,8 @@ return [
     'join_now'=>'Jiunge Sasa',
     'welcome_to_ipetano_platform'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
     'welcome_to_ipetano_platform_desc'=>'Karibu Ipe Tano, Jukwaa Lako la Maoni Unayoyaamini',
-
+     'search_companies' => 'Tafuta Makampuni',
+    'search_products_services' => 'Tafuta Bidhaa au Huduma',
+    'no_results' => 'Hakuna matokeo yaliyopatikana',
+    'from' => 'Kutoka Kampuni ya ',
 ];
