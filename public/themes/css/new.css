@@ -1,0 +1,370 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;400;700&family=Questrial&display=swap");
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+  font-family : "Kumbh Sans", sans-serif !important;
+}
+
+/* Style for the card container */
+.col-3 {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Style for the card itself */
+.card {
+    border-radius: 4px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+/* Style for the card title */
+.card h6 {
+        margin-top: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+    }
+
+/* Style for the card description */
+.card p {
+        font-size: 14px;
+        line-height: 1.6;
+        color: #555;
+    }
+
+/* Style for the card ratings */
+.card strong {
+        color: #f5a623;
+    }
+
+/* Style for the logo */
+/* .logo_sticky {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+} */
+
+/* Center the card title and description text */
+.text-center {
+    text-align: center;
+}
+
+/* Style for the horizontal rule */
+.card hr {
+    border-color: #ddd;
+    margin: 15px 0;
+    border-width: 3px;
+}
+
+/* Company card tab */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Main Container */
+  .col-lg-8 {
+    padding: 10px;
+  }
+  
+  /* Tab Navigation Styles */
+  .review_card nav {
+    margin-bottom: 0px;
+  }
+  
+  .review_card .nav-tabs {
+    display: flex;
+    /* justify-content: space-around; */
+    /* border-bottom: 1px solid #ccc; */
+    /* padding-bottom: 10px; */
+    padding-left: 15px;
+  }
+  
+  .review_card .nav-link {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    /* font-weight: bold; */
+    /* padding: 10px 15px; */
+    color: #333;
+    /* text-transform: uppercase; */
+    transition: color 0.3s ease;
+  }
+  
+  .review_card .nav-link.active {
+    color: #f5a623; /* Choose your desired color for the active tab text */
+    border-bottom: 3px solid #f5a623; 
+  }
+  
+  /* Tab Content Styles */
+  .tab-content {
+    padding: 0px;
+    /* border: 1px solid #ccc; */
+  }
+  
+  .tab-content .tab-pane {
+    display: none;
+  }
+  
+  .tab-content .tab-pane.active {
+    display: block;
+  }
+  
+  /* Review Card Styles */
+  .review_card {
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .review_card .user_info figure img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .review_card .user_info h5 {
+    margin-top: 10px;
+  }
+  
+  .review_card .rating {
+    color: #ffc107; /* Choose your desired color for the rating stars */
+  }
+  
+  .review_card .review_content em {
+    display: block;
+    margin-top: 10px;
+    color: #999;
+  }
+  
+  .review_card h4 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+  }
+  
+  .review_card p {
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+  
+  .review_card ul {
+    display: flex;
+    list-style: none;
+    margin-top: 20px;
+  }
+  
+  .review_card li {
+    margin-right: 20px;
+  }
+  
+  .review_card li span {
+    margin-left: 5px;
+  }
+  
+  /* Pagination Styles */
+  .pagination__wrapper {
+    text-align: center;
+  }
+
+
+  /* product */
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Main Container */
+  .card {
+    border-radius: 5px;
+    padding: 20px;
+  }
+  
+  .card-body {
+    text-align: left;
+  }
+  
+  /* Product Header Styles */
+  .card-body h5 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .card-body p {
+    color: #666;
+    line-height: 1.6;
+  }
+  
+  /* Rating Styles */
+  .col-md-6 {
+    /* margin-top: 20px; */
+    color: #000; /* Choose your desired color for the rating and review count */
+  }
+  
+  /* Button Styles */
+  .btn_1 {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #B28910; /* Choose your desired color for the button background */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn_1:hover {
+    background-color: #b39d5a;
+    color:#fff!important; /* Choose your desired color for the button hover effect */
+  }
+
+
+
+
+  /* Reset some default styles */
+/* * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Style for the search form */
+#search-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.custom-search-input-2 {
+  background-color: #f8f8f8;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Style for search results */
+.search-results {
+  /* display: none; */
+  width: 100%;
+  max-width: 900px;
+  background-color: white;
+  margin-top: 1px;
+  padding-left: 15px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+body {
+  background-color: #f1f1f1;
+}
+
+#regForm {
+  background-color: #ffffff;
+  margin: 5px auto;
+  padding: 5px;
+  width: 100%;
+  min-width: 300px;
+}
+
+h1 {
+  text-align: left; 
+  font-size: 20px; 
+}
+
+input {
+  padding: 10px;
+  width: 100%;
+  font-size: 17px;
+  border: 1px solid #aaaaaa;
+}
+
+/* Mark input boxes that gets an error on validation: */
+input.invalid {
+  background-color: #ffdddd;
+}
+
+/* Hide all steps by default: */
+.tab {
+  display: none;
+}
+
+button {
+  background-color: #B28910;
+  color: #ffffff;
+  border: none;
+  margin-top: 20px;
+  padding: 5px 20px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+#prevBtn {
+  background-color: #bbbbbb;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbbbbb;
+  border: none;  
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+  background-color: #04AA6D;
+}
+
+
+@media (max-width: 768px) {
+ 
+  .reviews_summary h1{
+    text-align:center!important;
+  }
+}
