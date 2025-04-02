@@ -268,10 +268,10 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 " style="width:100%">
-                <div class="banner-content text-center" style="position:relative;top:-3em;width:200px!">
+                <div class="banner-content text-center" style="position:relative;top:-3em;width:400px!">
                     <h1><span class="font-weight-normal">{{ __('messages.create_better') }}
-                    </span><span id="typing-text"> </span></h1>
-                   
+                    </span></h1>
+                   <h1><span id="typing-text"> </span></h1>
                     <div class="" style="margin-top:5em!important">
                         <a href="#" class="btn btn-main mr-2">{{ __('messages.lets_get_started') }}</a>
                         <a href="#" class="btn btn-solid-border mr-2">{{ __('messages.join_now') }}</a>

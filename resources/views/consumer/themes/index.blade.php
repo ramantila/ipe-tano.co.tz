@@ -84,6 +84,8 @@ body{
         background: white;
         border-radius: 5px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        cursor:pointer!important; /* Default cursor initially */
+    
     }
 
     /* Style each result */
@@ -92,6 +94,8 @@ body{
         font-size: 16px;
         padding: 8px;
         border-bottom: 1px solid #ddd;
+        cursor:pointer!important; /* Default cursor initially */
+    
     }
    
 
@@ -101,23 +105,28 @@ body{
 
     #searchResults {
     color: black !important; /* Force text to be black */
+    cursor:pointer!important; /* Default cursor initially */
+    
 }
 
 .search-result {
     color: black !important; /* Black color for search results */
     font-weight: bold;
+    cursor:pointer!important; /* Default cursor initially */
+    
     margin: 5px 0;
 }
 
 .search-result a {
     color: black; /* Black color for links */
-    text-decoration: none; /* Remove underline */
-    cursor: default; /* Default cursor initially */
+    text-decoration: none!important; /* Remove underline */
+    cursor:pointer!important; /* Default cursor initially */
+    
 }
 
 .search-result a:hover {
-    cursor: pointer; /* Change cursor to pointer on hover */
-    text-decoration: none; /* Ensure no underline on hover */
+    cursor: pointer!important; /* Change cursor to pointer on hover */
+    text-decoration: none!important; /* Ensure no underline on hover */
 }
     
 </style>
@@ -171,33 +180,44 @@ body{
                                         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
                                         max-height: 300px;
                                         overflow-y: auto;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
 
                                     /* Result Items */
                                     .result-item {
                                         padding: 15px;
-                                      
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                         transition: background 0.2s;
                                     }
 
                                     .result-item:last-child {
                                         border-bottom: none;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
 
                                     .result-item h3 {
                                         margin: 0;
                                         color: #007bff;
                                         font-size: 10px;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
 
                                     .result-item p {
                                         margin: 5px 0;
                                         color: #555;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
 
                                     .result-item:hover {
                                         background: #f1f1f1;
-                                        cursor: pointer;
+                                    
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
 
                                     /* No Results */
@@ -205,10 +225,13 @@ body{
                                         padding: 15px;
                                         text-align: center;
                                         color: #777;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                     }
                                  
                                     .search-result a:hover{
-                                        cursor: pointer;
+                                        cursor:pointer!important; /* Default cursor initially */
+    
                                         }
                            </style>
                          <div class="search-container">
@@ -244,12 +267,12 @@ body{
                                                 data.forEach(item => {
                                                     // Create links based on type and item id
                                                     if (type === "companies") {
-                                                        output += `<div class="search-result"><a href="/business/reviews/${item.id}" style="color: #756c6b;">${item.business_name}</a></div>`;
+                                                        output += `<div class="search-result"><a href="/business/reviews/${item.id}" style="color: #756c6b;cursor:pointer!important">${item.business_name}</a></div>`;
                                                     } else if (type === "products") {
-                                                        output += `<div class="search-result"><a href="cunsumer/product/read-more/${item.id}" style="color: #756c6b;">
+                                                        output += `<div class="search-result"><a href="cunsumer/product/read-more/${item.id}" style="color: #756c6b;cursor:pointer!important">
                                                         ${item.product_name} ${translations.from} <span style="font-weight: bold;color:#000!important">${item.business_name}</span>
                                                     </a></div>`;} else if (type === "services") {
-                                                        output += `<div class="search-result"><a href="consumer/service/read-more/${item.id}" style="color: #756c6b;">
+                                                        output += `<div class="search-result"><a href="consumer/service/read-more/${item.id}" style="color: #756c6b;cursor:pointer!important">
                                                             ${item.service_name} ${translations.from} <span style="font-weight: bold;color:#000">${item.business_name}</span>
                                                         </a></div>`;
                                                     }

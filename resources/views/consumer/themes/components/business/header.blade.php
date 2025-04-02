@@ -49,8 +49,8 @@
                                    {{ __('messages.why_ipe_tano') }} 
                                  </a>
                             </li>
-
-                            <li class="nav-item dropdown">
+                          
+                            {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbar3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Features<i class="fa fa-angle-down"></i>
                             </a>
@@ -65,7 +65,7 @@
 
 
                                 </div>
-                            </li>
+                            </li> --}}
                             <li class="nav-item ">
                                 <a href="{{ route('for-business.pricing')}}" class="nav-link">
                                 {{ __('messages.pricing') }} 
