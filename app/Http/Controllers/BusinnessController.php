@@ -17,7 +17,7 @@ class BusinnessController extends Controller
     public function index(){
 
         $businesses = Business::where('claim',0)->orderBy('id','DESC')->get();
-        
+
 
         return view('admin.businesses.index',compact('businesses'));
     }
@@ -41,7 +41,7 @@ class BusinnessController extends Controller
             $filename = date('YmdHis') . "." . $files->getClientOriginalExtension();
             $files->move($destinationPath, $filename);
         }
-        
+
         $business = new Business();
         $business->business_name = $request->businessname;
         $business->business_registration = $request->registration;
@@ -109,7 +109,7 @@ class BusinnessController extends Controller
         if ($filename != '') {
             $business->logo = $filename;
         }
-        
+
         $business->description = $request->details;
         $business->save();
 
@@ -122,7 +122,7 @@ class BusinnessController extends Controller
         $business->status = 3;
         $business->save();
         Session::flash('success', 'Account suspended successfull!');
-        return redirect('businesses/view'); 
+        return redirect('businesses/view');
     }
 
     public function businessVerify($business_id){
