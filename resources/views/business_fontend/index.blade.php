@@ -38,7 +38,7 @@
     <link href="{{ asset('business/assets/css/responsive.css') }}" rel="stylesheet" />
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.css" integrity="sha512-UTNP5BXLIptsaj5WdKFrkFov94lDx+eBvbKyoe1YAfjeRPC+gT5kyZ10kOHCfNZqEui1sxmqvodNUx3KbuYI/A==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-    
+
 
 </head>
 <style>
@@ -275,13 +275,13 @@
                     <div class="" style="margin-top:5em!important">
                         <a href="#" class="btn btn-main mr-2">{{ __('messages.lets_get_started') }}</a>
                         <a href="#" class="btn btn-solid-border mr-2">{{ __('messages.join_now') }}</a>
-                    </div>            
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- / .row -->
+
     </div>
-    <!-- / .container -->
+    
 </section>
 <!-- Banner Section End -->
 
@@ -329,7 +329,7 @@
     <section class="about-section section-padding3">
         <div class="container">
             <div class="row align-items-center justify-content-center">
-            
+
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-heading pl-lg-5 ">
                         <h3>Grow trust in your brand
@@ -340,7 +340,7 @@
                 </div>
 
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <img src="{{asset('business/assets/images/features/trust.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/trust.png')}}" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -354,7 +354,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <img src="{{asset('business/assets/images/features/customer-sell.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/customer-sell.png')}}" alt="" class="img-fluid">
                 </div>
 
                 <div class="col-xl-6 col-lg-6">
@@ -366,7 +366,7 @@
                     </div>
                 </div>
 
-             
+
             </div>
         </div>
     </section>
@@ -377,14 +377,14 @@
           <section class="about-section">
               <div class="container">
                <div class="row align-items-center justify-content-center">
-     
+
 
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-heading pl-lg-5 ">
                         <h3>Learn and Improve
                         </h3>
                         <p>
-                        Gain new insight into your products Keep customers coming back with an ever-improving product selection. Product Attributes ratings help you understand your products from your customer’s point-of-view.<br> Let your reputation shine. 
+                        Gain new insight into your products Keep customers coming back with an ever-improving product selection. Product Attributes ratings help you understand your products from your customer’s point-of-view.<br> Let your reputation shine.
                         Show your customers that you are more than willing to join the conversation.<br><br>
                         Having your Company profile enables you to showcase the trust people have in your brand and as an independent review site, Ipe Tano reviews stand out as trustworthy in the eyes of your future customers.
                         </p>
@@ -393,9 +393,9 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                                                <img src="{{asset('business/assets/images/features/learn-and-improve.png')}}" alt="" class="img-fluid">                
+                                                <img src="{{asset('business/assets/images/features/learn-and-improve.png')}}" alt="" class="img-fluid">
                                         </div>
-                                    
+
                                     </div>
                                 </div>
         </section>
@@ -405,7 +405,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <img src="{{asset('business/assets/images/features/seo.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/seo.png')}}" alt="" class="img-fluid">
                 </div>
 
                 <div class="col-xl-6 col-lg-6">
@@ -418,7 +418,7 @@
                     </div>
                 </div>
 
-             
+
             </div>
         </div>
     </section>
@@ -426,11 +426,11 @@
     <section class="about-section">
               <div class="container">
                <div class="row align-items-center justify-content-center">
-     
+
 
                 <div class="col-xl-6 col-lg-6">
                     <div class="section-heading pl-lg-5 ">
-                        <h3>Let your reputation shine. 
+                        <h3>Let your reputation shine.
                         </h3>
                         <p>
                          Show your customers that you are more than willing to join the conversation.<br><br>
@@ -441,9 +441,9 @@
                                         </div>
 
                                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                                                <img src="{{asset('business/assets/images/features/reputation.png')}}" alt="" class="img-fluid">                
+                                                <img src="{{asset('business/assets/images/features/reputation.png')}}" alt="" class="img-fluid">
                                         </div>
-                                    
+
                                     </div>
                                 </div>
         </section>
@@ -452,7 +452,7 @@
         <div class="container">
             <div class="row align-items-center justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                        <img src="{{asset('business/assets/images/features/social-media.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/social-media.png')}}" alt="" class="img-fluid">
                 </div>
 
                 <div class="col-xl-6 col-lg-6">
@@ -468,7 +468,7 @@
                                 </div>
                             </div>
 
-                        
+
                         </div>
                     </div>
                 </section>
@@ -611,7 +611,7 @@
                             <h4>Digital display and retargeting ads</h4>
                         </div>
                         <div class="testimonial-info-desc">
-                            Own your good ratings. Eliminate any reason people might distrust your ads with your Ipe Tano rating. 
+                            Own your good ratings. Eliminate any reason people might distrust your ads with your Ipe Tano rating.
 
                         </div>
                         <div class="client-info d-flex justify-content-center">
@@ -626,13 +626,13 @@
                         <div class="testimonial-info-desc">
                             Share the trust in your brand<br><br>
                             Whether meeting new or returning customers, Ipe Tano reviews in your app or on displays at an event show how much people love your brand.
-                            
+
 
                         </div>
                         <div class="client-info d-flex justify-content-center">
                             <a class="btn btn-main" href="">Join Now</a>
                         </div>
-                    </div>       
+                    </div>
                 </div>
             </div>
         </div>
@@ -646,7 +646,7 @@
 
 
 
- 
+
 <section class="cta bg-gray section-padding">
     <div class="container">
         <div class="row align-items-center justify-content-center">
@@ -660,7 +660,7 @@
             <!-- Card 1 -->
             <div class="col-md-4">
                 <div class="card">
-                        <img src="{{asset('business/assets/images/features/conversation.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/conversation.png')}}" alt="" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">Increase Conversions</h5>
                         <p class="card-text">
@@ -673,7 +673,7 @@
             <!-- Card 2 -->
             <div class="col-md-4">
                 <div class="card">
-                        <img src="{{asset('business/assets/images/features/standout.jpg')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/standout.jpg')}}" alt="" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">Stand Out Everywhere</h5>
                         <p class="card-text">
@@ -686,7 +686,7 @@
             <!-- Card 3 -->
             <div class="col-md-4">
                 <div class="card">
-                        <img src="{{asset('business/assets/images/features/traffic.png')}}" alt="" class="img-fluid">                
+                        <img src="{{asset('business/assets/images/features/traffic.png')}}" alt="" class="img-fluid">
                     <div class="card-body">
                         <h5 class="card-title">Drive Traffic</h5>
                         <p class="card-text">
@@ -703,12 +703,12 @@
     <!-- CTA Sidebar end -->
 
 
- 
+
     <!-- COunter Section start -->
     <section class="counter-block-2 mb--90 position-relative"  style="margin-top:4em!important;">
         <div class="container" style="background-color:none!important">
             <div class="row">
-               
+
                 <div class="col-xl-12 bg-black counter-inner">
                 <div class="col-12 text-center m-4" style="margin-bottom:4em!important">
                     <h2 class="text-white">Our Impressive Achievements</h2>
@@ -789,7 +789,7 @@ p,li,a{
             });
         });
     </script>
-    <!-- 
+    <!--
     Essential Scripts
     =====================================-->
 
@@ -815,13 +815,13 @@ p,li,a{
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkeLMlsiwzp6b3Gnaxd86lvakimwGA6UA&callback=initMap"></script>
     {{-- <script src="assets/js/script.js"></script> --}}
      <script src="{{ asset('business/assets/js/script.js') }}"></script>
-    
+
 
 
    <!--Typing text effect--->
 <script>
-    var typingText = ["{{ __('messages.be_heard') }}", 
-        "{{ __('messages.be_seen') }}", 
+    var typingText = ["{{ __('messages.be_heard') }}",
+        "{{ __('messages.be_seen') }}",
         ];
     var typingElement = document.getElementById("typing-text");
     var index = 0;
