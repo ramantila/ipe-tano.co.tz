@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-    
+
     <title>IPE TANO | {{ __('messages.home') }}</title>
      @include('consumer.themes.components.head')
 
-</head> 
-     
+</head>
+
      @include('consumer.themes.components.special-css.home-page-css')
          <link href="{{ asset('themes/css/new.css') }}" rel="stylesheet" type="text/css" />
 
@@ -16,19 +16,19 @@ body{
     background-color:#eef3f7!important;
 }
 /* @media (max-width: 767px) {
-    
+
 .col-31 {
-    flex: 0 0 auto; 
-    width: 6.5%; 
-   
+    flex: 0 0 auto;
+    width: 6.5%;
+
 }
 
 @media (max-width: 767px) {
-    
+
 .col-31 {
-    flex: 0 0 auto; 
-    width: 6.5%; 
-   
+    flex: 0 0 auto;
+    width: 6.5%;
+
 }
 
 
@@ -47,7 +47,7 @@ body{
         width: 100%; /* Ensures each item fits perfectly */
         padding: 0; /* Removes any extra padding */
         margin: 0; /* Ensures no extra margin */
-        
+
     }
 
     .category-item {
@@ -63,7 +63,7 @@ body{
         max-width: 100%;
         margin: 30px auto;
         padding: 20px;
-       
+
         border-radius: 10px;
     }
 
@@ -85,7 +85,7 @@ body{
         border-radius: 5px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
         cursor:pointer!important; /* Default cursor initially */
-    
+
     }
 
     /* Style each result */
@@ -95,9 +95,9 @@ body{
         padding: 8px;
         border-bottom: 1px solid #ddd;
         cursor:pointer!important; /* Default cursor initially */
-    
+
     }
-   
+
 
     .search-result:last-child {
         border-bottom: none;
@@ -106,14 +106,14 @@ body{
     #searchResults {
     color: black !important; /* Force text to be black */
     cursor:pointer!important; /* Default cursor initially */
-    
+
 }
 
 .search-result {
     color: black !important; /* Black color for search results */
     font-weight: bold;
     cursor:pointer!important; /* Default cursor initially */
-    
+
     margin: 5px 0;
 }
 
@@ -121,14 +121,14 @@ body{
     color: black; /* Black color for links */
     text-decoration: none!important; /* Remove underline */
     cursor:pointer!important; /* Default cursor initially */
-    
+
 }
 
 .search-result a:hover {
     cursor: pointer!important; /* Change cursor to pointer on hover */
     text-decoration: none!important; /* Ensure no underline on hover */
 }
-    
+
 </style>
 <body>
 
@@ -149,7 +149,7 @@ body{
                                 {{-- <h3 class="hero_text_main ">Umeionaje bidhaa au huduma uliyotumia?</h3>
                                 <p>Wajulishe wengine!.</p> --}}
                                <div class="hero_text">
-                                    <h3 class="hero_text_main font-weight-normal dty" 
+                                    <h3 class="hero_text_main font-weight-normal dty"
                                     style="font-size:3.5em;font-family: Kumbh Sans, sans-serif !important;">{{ __('messages.comment_product') }}</h3>
                                     <p class="wajulishe">{{ __('messages.share_experience') }}</p>
                                 </div>
@@ -181,21 +181,21 @@ body{
                                         max-height: 300px;
                                         overflow-y: auto;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
 
                                     /* Result Items */
                                     .result-item {
                                         padding: 15px;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                         transition: background 0.2s;
                                     }
 
                                     .result-item:last-child {
                                         border-bottom: none;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
 
                                     .result-item h3 {
@@ -203,21 +203,21 @@ body{
                                         color: #007bff;
                                         font-size: 10px;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
 
                                     .result-item p {
                                         margin: 5px 0;
                                         color: #555;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
 
                                     .result-item:hover {
                                         background: #f1f1f1;
-                                    
+
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
 
                                     /* No Results */
@@ -226,22 +226,22 @@ body{
                                         text-align: center;
                                         color: #777;
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                     }
-                                 
+
                                     .search-result a:hover{
                                         cursor:pointer!important; /* Default cursor initially */
-    
+
                                         }
                            </style>
                          <div class="search-container">
                             <input type="text" id="company" name="company" placeholder="{{ __('messages.search_companies') }}">
                             <input type="text" id="productService" name="productService" placeholder="{{ __('messages.search_products_services') }}">
-                            
+
                             <!-- Search Results -->
                             <div id="searchResults" style="z-index:100000!important"></div>
                         </div>
-                        
+
                         <script>
                             $(document).ready(function () {
                                 // Pass the translations from PHP to JavaScript
@@ -249,10 +249,10 @@ body{
                                     noResults: @json(__('messages.no_results')),
                                     from: @json(__('messages.from')) // Translate "from" here
                                 };
-                        
+
                                 function search(type, query) {
                                     console.log("Searching:", { type, query });
-                        
+
                                     $.ajax({
                                         url: "{{ route('search') }}",
                                         type: "GET",
@@ -260,7 +260,7 @@ body{
                                         success: function (data) {
                                             console.log("Response:", data);
                                             let output = "";
-                        
+
                                             if (data.length === 0) {
                                                 output = `<div class="search-result">${translations.noResults}</div>`;
                                             } else {
@@ -279,7 +279,7 @@ body{
 
                                                 });
                                             }
-                        
+
                                             // Show results only if there is data
                                             if (output !== "") {
                                                 $("#searchResults").html(output).fadeIn();
@@ -292,7 +292,7 @@ body{
                                         }
                                     });
                                 }
-                        
+
                                 // Function to handle search
                                 function handleSearch(inputId, type) {
                                     $(inputId).on("keyup", function () {
@@ -305,44 +305,44 @@ body{
                                         }
                                     });
                                 }
-                        
+
                                 // Attach search to both inputs
                                 handleSearch("#company", "companies");
                                 handleSearch("#productService", "products");
                                 handleSearch("#productService", "services");
                             });
                         </script>
-                        
-                            
-                            
+
+
+
                             <!-- CSS for Black Text -->
                             <style>
                                 #searchResults {
                                     color: black !important; /* Force text to be black */
                                 }
-                            
+
                                 .search-result {
                                     color: black !important; /* Black color for search results */
                                     font-weight: bold;
                                     margin: 5px 0;
                                 }
-                            
+
                                 .search-result a {
                                     color: black; /* Black color for links */
                                     text-decoration: none; /* Remove underline */
                                 }
-                            
+
                                 .search-result a:hover {
                                     text-decoration: underline; /* Optional: Underline on hover */
                                 }
                             </style>
-                            
+
                                 <!-- CSS for Black Text -->
                                 <style>
                                     #searchResults {
                                         color: black !important; /* Force text to be black */
                                     }
-                                
+
                                     .search-result {
                                         color: black !important; /* Black color for search results */
                                         font-weight: bold;
@@ -350,7 +350,7 @@ body{
                                     }
                                 </style>
 
-                                
+
                             </div>
 
                         </div>
@@ -464,7 +464,7 @@ body{
 
            <div class="container margin_60_35">
     <div class="main_title_3">
-       
+
         <h2 class="top-categories" style="z-index: -9999!important;">{{ __('messages.top_categories') }}</h2>
 
         <style>
@@ -501,7 +501,7 @@ body{
         @endforeach
     </div>
 
-      
+
 </div>
 
     </div>
@@ -611,16 +611,16 @@ body{
         </div>
         <?php $categories = App\Models\Category::paginate(12); ?>
         <div class="container margin_60_35">
-        
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row ">
-                    
+
                     @foreach ($topCompanies as $top)
                     {{-- first option --}}
                     {{-- <div class="col-md-4 mb-4">
                         <div class="card h-100 shadow transition-card ">
-                           
+
                             <div class="card-body" >
                                 <h5 class="card-title"><a href="blog-post.html">{{ $top->business_name }}</a></h5>
                                 <p class="card-text">{{ \Illuminate\Support\Str::limit($top->description, 100, '...') }}</p>
@@ -636,16 +636,16 @@ body{
                             <div class="card-body d-flex align-items-center">
                                 <img src="{{ url('images/business/' . $top->logo) }}" alt="Company Image" class="rounded-circle me-3" style="width: 60px; height: 60px; ">
                                 <div>
-                                
-                                    <h5 class="card-title mb-0"><a href="blog-post.html">{{ \Illuminate\Support\Str::limit($top->business_name, 20, '...') }}</a></h5>
+
+                                    <h5 class="card-title mb-0"><a href="{{ url('/business/reviews/' . $top->id) }}">{{ \Illuminate\Support\Str::limit($top->business_name, 20, '...') }}</a></h5>
                                     <div class="rating">
                                         <!-- Example using Font Awesome for the star icons -->
-                                       
+
                                          {{-- <p class="category" style="margin-bottom:0px !important">{{ __(key: 'messages.categories_list.' . strtolower(str_replace(' ', '_', $top->category->category_name))) }}</p> --}}
                                         <span class="rating"><em>{{$top->total_rating}}/5.00</em></span>
                                         {{-- '<span class="rating">' + getStarIcons(review.rating) + '<em>' +
                             review.rating + '/5.00</em></span>' + --}}
-                                      
+
                                     </div>
                                 </div>
                         </div>
@@ -818,8 +818,8 @@ body{
     <div id="toTop"></div>
     <!-- Back to top button -->
 
-   
-    
+
+
     @include('consumer.themes.components.scripts')
     @include('consumer.themes.components.special-scripts.home-page-scripts')
 
