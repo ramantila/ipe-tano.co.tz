@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-   
+
     <title>IPE TANO | {{ __('messages.companies_categories_result') }}</title>
         @include('consumer.themes.components.head')
 
@@ -12,34 +12,34 @@
 <style>
 .active a {
     font-weight: bold;
-    color:rgb(178, 137, 16)!important; 
+    color:rgb(178, 137, 16)!important;
 }
 
 .language-selector select {
-    background-color: #f8f9fa; 
-    border: 1px solid #ccc;   
-    border-radius: 5px;      
-    padding: 3px 10px;    
-    font-size: 16px;       
-    color: #333;          
-    cursor: pointer;    
+    background-color: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 3px 10px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
     transition: all 0.3s ease;
-    width: 100%;    
+    width: 100%;
     max-width: 200px;          /* Max width to prevent it from being too large */
 }
 
 .language-selector select:focus {
-    box-shadow: 0 0 5px rgba(29, 30, 32, 0.5); 
-    outline: none;     
+    box-shadow: 0 0 5px rgba(29, 30, 32, 0.5);
+    outline: none;
 }
 
 .language-selector select option {
-    font-size: 16px;    
-    padding: 5px;  
+    font-size: 16px;
+    padding: 5px;
 }
 
 .language-selector select:hover {
-    border-color:rgb(26, 28, 30);   
+    border-color:rgb(26, 28, 30);
 }
 @media (max-width: 768px) {
     .language-selector {
@@ -188,7 +188,7 @@
             </div>
             <!-- /results -->
 
-         
+
             <!-- /filters -->
 
             <div class="collapse" id="filters">
@@ -267,7 +267,7 @@
             <!-- /Filters -->
             <div class="row">
                 <div class="col-md-8">
-                 
+
                     <div class="container margin_60_35 ">
                         @if ($categoryCompany->business->count() > 0)
                             <div class="isotope-wrapper">
@@ -314,12 +314,12 @@
                                                         @endfor
                                                     </span>
 
-                                                    <a href="{{ url('/business/reviews/' . $key->id) }}" 
+                                                    <a href="{{ url('/business/reviews/' . $key->id) }}"
                                                         style="pointer-events: auto; background-color:#B28910 ;padding:8px; color: #fff;border-radius:10px;margin:0 5px;text-decoration: none;">
                                                         {{ __('messages.read_more') }}
                                                         </a>
 
-                                                        <a href="{{ url('consumer/business/write-review/' . $key->id) }}" 
+                                                        <a href="{{ url('consumer/business/write-review/' . $key->id) }}"
                                                         style="pointer-events: auto; background-color:#B28910 ;padding:8px; color: #fff;border-radius:10px;margin:0 0px;text-decoration: none;">
                                                         {{ __('messages.write_review') }}
                                                         </a>
@@ -329,7 +329,7 @@
 
 
                                     </div>
-                                    
+
                                 @endforeach
 
                                 <!-- /company_listing -->
@@ -350,12 +350,12 @@
                         </div>
                    </div>
                 </div>
-               
+
             <div class="col-md-4">
                             {{-- <div class="card-slider" style="width:auto;padding:10px;text-align:center"> --}}
-                      
+
                             <div class="card shadow-lg mb-4  " style="width:auto;margin:2em 0.7em">
-                           
+
                                     <div class="company-container">
                                         <span class="company-title">{{ __('messages.best_rated') }}</span>
                                         <div class="logos-container">
@@ -366,33 +366,33 @@
                                             <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
                                         </div>
                                     </div>
-                                    
 
-                                 <?php 
+
+                                 <?php
                                 $topBusiness = App\Models\Business::where('total_rating', '>', 0)
                                     ->orderBy('total_rating', 'desc')
                                     ->take(15)
                                     ->get();
-                                    
+
                                 ?>
-                                
-                                @foreach($topBusiness as $top)   
+
+                                @foreach($topBusiness as $top)
                                     <div class="company-card">
                                         <a href="" class="d-block">
-                                            <img src="{{asset('images/business/20231120172602.jpg')}}" alt="Company 5 Logo" class="company-logo">
+                                            <img src="{{asset('images/business/'. $top->logo)}}" alt="Company 5 Logo" class="company-logo">
                                             <span class="company-name">{{$top->business_name}}</span>
                                         </a>
                                     </div>
                                 @endforeach
-                                 
+
 
                             </div>
 
             </div>
-             
+
         </div>
 
-          
+
             <!-- /container -->
 
         </main>
@@ -476,7 +476,7 @@
             });
         });
     </script>
-  
+
 
 </body>
 
