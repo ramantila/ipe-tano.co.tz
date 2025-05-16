@@ -272,14 +272,14 @@
                         @if ($categoryCompany->business->count() > 0)
                             <div class="isotope-wrapper">
                                 @foreach ($categoryCompany->business as $key)
-                                    <div class="company_listing isotope-item high ">
+                                    <div class="company_listing isotope-item high " >
                                         <div class="row">
                                             <div class="col-md-9">
-                                                <div class="company_info ">
-                                                    <figure>
+                                                <div class="company_info " >
+                                                    <figure >
                                                         <a href="{{ url('/business/reviews/' . $key->id) }}">
                                                             <img src="{{ asset('/images/business/' . $key->logo) }}"
-                                                                alt="">
+                                                                alt="" style="width: 170px!important; height: 110px!important;">
                                                             {{-- @if ($key->logo != '')
                                                                 <img src="{{ url('/images/business/'.$key->logo) }}"
                                                                     alt="">
@@ -351,46 +351,45 @@
                    </div>
                 </div>
 
-            <div class="col-md-4">
-                            {{-- <div class="card-slider" style="width:auto;padding:10px;text-align:center"> --}}
+                <div class="col-md-4">
+                                {{-- <div class="card-slider" style="width:auto;padding:10px;text-align:center"> --}}
 
-                            <div class="card shadow-lg mb-4  " style="width:auto;margin:2em 0.7em">
+                                <div class="card shadow-lg mb-4  " style="width:auto;margin:2em 0.7em">
 
-                                    <div class="company-container">
-                                        <span class="company-title">{{ __('messages.best_rated') }}</span>
-                                        <div class="logos-container">
-                                            <img src="/themes/img/colored.svg" alt="Logo 1" width="17" class="logo-image">
-                                            <img src="/themes/img/colored.svg" alt="Logo 2" width="17" class="logo-image">
-                                            <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
-                                            <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
-                                            <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
+                                        <div class="company-container">
+                                            <span class="company-title">{{ __('messages.best_rated') }}</span>
+                                            <div class="logos-container">
+                                                <img src="/themes/img/colored.svg" alt="Logo 1" width="17" class="logo-image">
+                                                <img src="/themes/img/colored.svg" alt="Logo 2" width="17" class="logo-image">
+                                                <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
+                                                <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
+                                                <img src="/themes/img/colored.svg" alt="Logo 3" width="17" class="logo-image">
+                                            </div>
                                         </div>
-                                    </div>
 
 
-                                 <?php
-                                $topBusiness = App\Models\Business::where('total_rating', '>', 0)
-                                    ->orderBy('total_rating', 'desc')
-                                    ->take(15)
-                                    ->get();
+                                    <?php
+                                    $topBusiness = App\Models\Business::where('total_rating', '>', 0)
+                                        ->orderBy('total_rating', 'desc')
+                                        ->take(15)
+                                        ->get();
 
-                                ?>
+                                    ?>
 
-                                @foreach($topBusiness as $top)
-                                    <div class="company-card">
-                                        <a href="" class="d-block">
-                                            <img src="{{asset('images/business/'. $top->logo)}}" alt="Company 5 Logo" class="company-logo">
-                                            <span class="company-name">{{$top->business_name}}</span>
-                                        </a>
-                                    </div>
-                                @endforeach
+                                    @foreach($topBusiness as $top)
+                                        <div class="company-card">
+                                            <a href="" class="d-block">
+                                                <img src="{{asset('images/business/'. $top->logo)}}" alt="Company 5 Logo" class="company-logo">
+                                                <span class="company-name">{{$top->business_name}}</span>
+                                            </a>
+                                        </div>
+                                    @endforeach
 
 
-                            </div>
+                                </div>
 
+                </div>
             </div>
-
-        </div>
 
 
             <!-- /container -->
